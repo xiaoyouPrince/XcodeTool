@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDECodeSnippetCompletionPrefix</key>
+	<string>xy_view_init</string>
+	<key>IDECodeSnippetCompletionScopes</key>
+	<array>
+		<string>All</string>
+	</array>
+	<key>IDECodeSnippetContents</key>
+	<string>@interface &lt;#MyView#&gt; ()
+
+/** scrollView */
+@property (nonatomic, weak)         UIScrollView * scrollView;
+/** contentView */
+@property (nonatomic, weak)         UIView * contentView;
+
+@end
+
+@implementation &lt;#MyView#&gt;
+
+- (instancetype)initWithFrame:(CGRect)frame
+{
+    self = [super initWithFrame:frame];
+    if (self) {
+        [self setupContent];
+    }
+    return self;
+}
+
+- (void)awakeFromNib
+{
+    [super awakeFromNib];
+    
+    [self setupContent];
+}
+
+
+- (void)setupContent{
+    
+    UIScrollView *scrollView = [[UIScrollView alloc] init];
+    scrollView.showsHorizontalScrollIndicator = NO;
+    self.scrollView = scrollView;
+    [self addSubview:scrollView];
+    
+    UIView *contentView = [UIView new];
+    self.contentView = contentView;
+    [self.scrollView addSubview:contentView];
+    
+    [scrollView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.edges.equalTo(self);
+    }];
+    
+    [contentView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.edges.equalTo(self.scrollView);
+        make.height.equalTo(self);
+    }];
+}</string>
+	<key>IDECodeSnippetIdentifier</key>
+	<string>46F7B2F7-C064-485A-981A-C794E0D17BA7</string>
+	<key>IDECodeSnippetLanguage</key>
+	<string>Xcode.SourceCodeLanguage.Generic</string>
+	<key>IDECodeSnippetSummary</key>
+	<string>xy_view_init</string>
+	<key>IDECodeSnippetTitle</key>
+	<string>xy_view_init</string>
+	<key>IDECodeSnippetUserSnippet</key>
+	<true/>
+	<key>IDECodeSnippetVersion</key>
+	<integer>2</integer>
+</dict>
+</plist>

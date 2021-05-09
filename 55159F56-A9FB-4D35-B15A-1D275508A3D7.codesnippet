@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDECodeSnippetCompletionPrefix</key>
+	<string>xy_jiugongge</string>
+	<key>IDECodeSnippetCompletionScopes</key>
+	<array>
+		<string>All</string>
+	</array>
+	<key>IDECodeSnippetContents</key>
+	<string>    // 九宫格创建内容
+    int coloums = 3;
+    CGFloat margin = 0;
+    CGFloat cellW = (ScreenW - margin * (coloums + 1)) / coloums;
+    CGFloat cellH = 60;
+    
+    int index = 0;
+    for (NSString *name in dataArray) {
+        
+        XYVisaInfoItem *cell = [XYVisaInfoItem new];
+        cell.name = name;
+        
+        [self addSubview:cell];
+        
+        CGFloat cellX = (index == 0) ? margin : margin + (cellW + margin) * (index % coloums);
+        CGFloat cellY = (index == 0) ? margin : (margin + (cellH + margin) * (index / coloums));
+        // cell.frame = CGRectMake(cellX, cellY, cellW, cellH);
+        
+        [cell mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.top.equalTo(label.mas_bottom).offset(cellY);
+            make.left.equalTo(self).offset(cellX);
+            make.width.mas_equalTo(cellW);
+            make.height.mas_equalTo(cellH);
+        }];
+        
+        // 最后一个btn 和父控件对齐
+        if (index == dataArray.count - 1) {
+            [self mas_makeConstraints:^(MASConstraintMaker *make) {
+                make.bottom.mas_greaterThanOrEqualTo(cell).offset(15);
+            }];
+        }
+        
+        index ++;
+    }</string>
+	<key>IDECodeSnippetIdentifier</key>
+	<string>55159F56-A9FB-4D35-B15A-1D275508A3D7</string>
+	<key>IDECodeSnippetLanguage</key>
+	<string>Xcode.SourceCodeLanguage.Objective-C</string>
+	<key>IDECodeSnippetSummary</key>
+	<string>快速创建九宫格代码</string>
+	<key>IDECodeSnippetTitle</key>
+	<string>xy_jiugongge</string>
+	<key>IDECodeSnippetUserSnippet</key>
+	<true/>
+	<key>IDECodeSnippetVersion</key>
+	<integer>2</integer>
+</dict>
+</plist>

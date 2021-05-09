@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDECodeSnippetCompletionPrefix</key>
+	<string>xy_vc_init</string>
+	<key>IDECodeSnippetCompletionScopes</key>
+	<array>
+		<string>All</string>
+	</array>
+	<key>IDECodeSnippetContents</key>
+	<string>#pragma mark - LazyLoad properties
+
+#pragma mark - life circle
+
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    
+    [self buildUI];
+    
+    [self loadData];
+    
+}
+
+- (void)loadData{
+    
+    //    __weak typeof(self)weakSelf = self;
+    //    NSString *url = URL_for_Visa_WithPath(@"/api/merchandise/list");
+    //    [NetWorkUikits requestWithUrl:url param:nil completionHandle:^(id data) {
+    //
+    //        NSLog(@"data = %@",data);
+    //        // 处理请求数据
+    //
+    //    } failureHandle:^(NSError *error) {
+    //
+    //    }];
+}
+
+- (void)buildUI{
+    
+    // 1.设置导航栏样式
+    [self setupNav];
+    
+    // 2. 内部自定义控件
+//    /** scrollVIew */
+//    @property (nonatomic, weak)         UIScrollView * scrollView;
+//    /** contentView */
+//    @property (nonatomic, weak)         UIView * contentView;
+//
+//    // scrollView &amp; contentView
+//    UIScrollView *scrollView = [[UIScrollView alloc] init];
+//    self.scrollView = scrollView;
+//    [self.view addSubview:scrollView];
+//
+//    UIView *contentView = [UIView new];
+//    self.contentView = contentView;
+//    [self.scrollView addSubview:contentView];
+//    [scrollView mas_makeConstraints:^(MASConstraintMaker *make) {
+//        make.edges.equalTo(self.view);
+//    }];
+//    
+//    [contentView mas_makeConstraints:^(MASConstraintMaker *make) {
+//        make.edges.equalTo(self.scrollView);
+//        make.width.equalTo(self.view);
+//        make.height.mas_equalTo( (ScreenW - 30)/(345/115.0));
+//    }];
+
+    
+}
+
+- (void)setupNav{
+    
+    // 颜色设置(可能需要单独设置)
+    self.navigationController.navigationBar.barTintColor = HEXCOLOR(0xf6f6f6);
+    [self.navigationController.navigationBar setBackgroundImage:nil forBarMetrics:UIBarMetricsDefault];
+    
+    // 内部自定义控件
+}
+
+#pragma mark - contentDelegates
+
+#pragma mark - content Actions
+
+
+#pragma mark - privateMethods
+
+
+#pragma mark - publicMethods
+
+- (void)dealloc
+{
+    // 移除通知
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+    
+    // 移除KVO
+    // [self removeObserver:self forKeyPath:@""];;
+}</string>
+	<key>IDECodeSnippetIdentifier</key>
+	<string>C6319875-8E17-4389-88C9-D94C5A1B5270</string>
+	<key>IDECodeSnippetLanguage</key>
+	<string>Xcode.SourceCodeLanguage.Generic</string>
+	<key>IDECodeSnippetSummary</key>
+	<string>xy_vc_init</string>
+	<key>IDECodeSnippetTitle</key>
+	<string>xy_vc_init</string>
+	<key>IDECodeSnippetUserSnippet</key>
+	<true/>
+	<key>IDECodeSnippetVersion</key>
+	<integer>2</integer>
+</dict>
+</plist>

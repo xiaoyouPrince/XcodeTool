@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDECodeSnippetCompletionPrefix</key>
+	<string></string>
+	<key>IDECodeSnippetCompletionScopes</key>
+	<array>
+		<string>All</string>
+	</array>
+	<key>IDECodeSnippetContents</key>
+	<string>    // UICollectionView
+    UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];
+    layout.scrollDirection = UICollectionViewScrollDirectionVertical;
+    layout.itemSize = CGSizeMake((kScreen_Width - 60)/7.0 , ((self.clanderView.xy_height - 53)/6));
+    layout.minimumLineSpacing = 0;
+    layout.minimumInteritemSpacing = 0;
+
+    UICollectionView *collection = [[UICollectionView alloc] initWithFrame:CGRectZero collectionViewLayout:layout];
+    [collection registerNib:[UINib nibWithNibName:@"XYClanderCell" bundle:nil] forCellWithReuseIdentifier:@"XYClanderCell"];
+    collection.delegate = self;
+    collection.dataSource = self;
+    collection.pagingEnabled = YES;
+    collection.showsHorizontalScrollIndicator = NO;
+    collection.backgroundColor = [UIColor whiteColor];
+    collection.allowsMultipleSelection = YES;
+    [self.clanderView addSubview:collection];
+    
+    [collection mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(weekView.mas_bottom).offset(0);
+        make.left.equalTo(self.clanderView).offset(0);
+        make.right.equalTo(self.clanderView).offset(0);
+        make.bottom.equalTo(self.clanderView).offset(0);
+    }];
+    
+    
+}
+
+#pragma mark - collectionView Delegate &amp; data source
+- (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
+{
+    return 42;
+}
+
+- (__kindof UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath{
+    
+    XYClanderCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"XYClanderCell" forIndexPath:indexPath];
+    return cell;
+}</string>
+	<key>IDECodeSnippetIdentifier</key>
+	<string>41493B9F-66A8-451D-9896-0D7ACBD16CB0</string>
+	<key>IDECodeSnippetLanguage</key>
+	<string>Xcode.SourceCodeLanguage.Objective-C</string>
+	<key>IDECodeSnippetSummary</key>
+	<string>xy_newCollectionView</string>
+	<key>IDECodeSnippetTitle</key>
+	<string>xy_newCollectionView</string>
+	<key>IDECodeSnippetUserSnippet</key>
+	<true/>
+	<key>IDECodeSnippetVersion</key>
+	<integer>2</integer>
+</dict>
+</plist>

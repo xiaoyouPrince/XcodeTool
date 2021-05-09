@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDECodeSnippetCompletionPrefix</key>
+	<string>xy_newLabel</string>
+	<key>IDECodeSnippetCompletionScopes</key>
+	<array>
+		<string>All</string>
+	</array>
+	<key>IDECodeSnippetContents</key>
+	<string>UILabel *dateLabel = [[UILabel alloc] init];
+    [dateLabel xy_setText:@"计划出行日期" font:[UIFont boldSystemFontOfSize:12] textColor:UIColor.blackColor];
+    [self.contentView addSubview:dateLabel];
+
+    [dateLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(self.contentView).offset(15);
+        make.left.equalTo(self.contentView).offset(15);
+}];</string>
+	<key>IDECodeSnippetIdentifier</key>
+	<string>862158AF-B91F-4FF6-8DC0-73CB83DB1603</string>
+	<key>IDECodeSnippetLanguage</key>
+	<string>Xcode.SourceCodeLanguage.Objective-C</string>
+	<key>IDECodeSnippetSummary</key>
+	<string>xy_newLabel</string>
+	<key>IDECodeSnippetTitle</key>
+	<string>xy_newLabel</string>
+	<key>IDECodeSnippetUserSnippet</key>
+	<true/>
+	<key>IDECodeSnippetVersion</key>
+	<integer>2</integer>
+</dict>
+</plist>

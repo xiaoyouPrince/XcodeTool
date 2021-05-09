@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDECodeSnippetCompletionPrefix</key>
+	<string>xy_newTableView</string>
+	<key>IDECodeSnippetCompletionScopes</key>
+	<array>
+		<string>All</string>
+	</array>
+	<key>IDECodeSnippetContents</key>
+	<string>UITableView *tableView = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStylePlain];
+    self.tableView = tableView;
+    [self.view addSubview:tableView];
+    tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+    tableView.delegate = self;
+    tableView.dataSource = self;
+    tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+    tableView.estimatedRowHeight = UITableViewAutomaticDimension;
+    tableView.estimatedSectionFooterHeight = UITableViewAutomaticDimension;
+    tableView.estimatedSectionHeaderHeight = UITableViewAutomaticDimension;
+    tableView.backgroundColor = [UIColor clearColor];
+    tableView.contentInset = UIEdgeInsetsMake(0, 0, 10, 0);
+    tableView.showsVerticalScrollIndicator = NO;</string>
+	<key>IDECodeSnippetIdentifier</key>
+	<string>116DF372-58D9-4D43-AC63-7C6FC7A65FEA</string>
+	<key>IDECodeSnippetLanguage</key>
+	<string>Xcode.SourceCodeLanguage.Objective-C</string>
+	<key>IDECodeSnippetSummary</key>
+	<string>xy_newTableView</string>
+	<key>IDECodeSnippetTitle</key>
+	<string>xy_newTableView</string>
+	<key>IDECodeSnippetUserSnippet</key>
+	<true/>
+	<key>IDECodeSnippetVersion</key>
+	<integer>2</integer>
+</dict>
+</plist>

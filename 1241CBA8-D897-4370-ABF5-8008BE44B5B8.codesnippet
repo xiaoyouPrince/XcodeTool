@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDECodeSnippetCompletionPrefix</key>
+	<string>xy_newButton</string>
+	<key>IDECodeSnippetCompletionScopes</key>
+	<array>
+		<string>All</string>
+	</array>
+	<key>IDECodeSnippetContents</key>
+	<string>    UIButton *btn = [UIButton new];
+    [btn setImage:[UIImage imageNamed:@"visa_add"] forState:UIControlStateNormal];
+    [btn setTitle:@"继续添加" forState:UIControlStateNormal];
+    [btn setTitleColor:HEXCOLOR(0xd92427) forState:UIControlStateNormal];
+    btn.titleLabel.font = [UIFont systemFontOfSize:12];
+    btn.backgroundColor = HEXCOLOR(0xFEF1F1);
+    [btn addTarget:self action:@selector(addNewPersonBtnClick:) forControlEvents:UIControlEventTouchUpInside];
+    ViewBorderRadius(btn, 11, 1, UIColor.redColor);
+    [self.contentView addSubview:btn];
+
+    [btn mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(&lt;#self#&gt;).offset(15);
+        make.left.equalTo(&lt;#self#&gt;).offset(15);
+        make.right.equalTo(&lt;#self#&gt;).offset(-15);
+        make.bottom.equalTo(&lt;#self#&gt;).offset(-23);
+}];</string>
+	<key>IDECodeSnippetIdentifier</key>
+	<string>1241CBA8-D897-4370-ABF5-8008BE44B5B8</string>
+	<key>IDECodeSnippetLanguage</key>
+	<string>Xcode.SourceCodeLanguage.Objective-C</string>
+	<key>IDECodeSnippetSummary</key>
+	<string>xy_newButton</string>
+	<key>IDECodeSnippetTitle</key>
+	<string>xy_newButton</string>
+	<key>IDECodeSnippetUserSnippet</key>
+	<true/>
+	<key>IDECodeSnippetVersion</key>
+	<integer>2</integer>
+</dict>
+</plist>

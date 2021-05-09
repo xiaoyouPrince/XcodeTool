@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDECodeSnippetCompletionPrefix</key>
+	<string>xy_newTextField</string>
+	<key>IDECodeSnippetCompletionScopes</key>
+	<array>
+		<string>All</string>
+	</array>
+	<key>IDECodeSnippetContents</key>
+	<string>    UITextField *chooseDate_TF = [UITextField new];
+    chooseDate_TF.borderStyle = UITextBorderStyleLine;
+    [self.contentView addSubview:chooseDate_TF];
+    
+    UIImageView *icon_tf = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"visa_add"]];
+    [chooseDate_TF addSubview:icon_tf];
+    [icon_tf mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.centerY.equalTo(chooseDate_TF);
+        make.right.equalTo(chooseDate_TF).offset(-15);
+    }];
+    
+    icon_tf.tintColor = UIColor.redColor;
+    chooseDate_TF.placeholder = @"选择日期";
+    ViewBorderRadius(chooseDate_TF, 1, 1, HEXCOLOR(0xeaeaea));
+    
+    [chooseDate_TF mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(dateLabel.mas_bottom).offset(15);
+        make.left.equalTo(self.contentView).offset(15);
+        make.right.equalTo(self.contentView).offset(-15);
+        make.height.mas_equalTo(35);
+    }];</string>
+	<key>IDECodeSnippetIdentifier</key>
+	<string>35A49D53-6269-4602-87EC-AAB4D0A33A58</string>
+	<key>IDECodeSnippetLanguage</key>
+	<string>Xcode.SourceCodeLanguage.Objective-C</string>
+	<key>IDECodeSnippetSummary</key>
+	<string>xy_newTextField</string>
+	<key>IDECodeSnippetTitle</key>
+	<string>xy_newTextField</string>
+	<key>IDECodeSnippetUserSnippet</key>
+	<true/>
+	<key>IDECodeSnippetVersion</key>
+	<integer>2</integer>
+</dict>
+</plist>

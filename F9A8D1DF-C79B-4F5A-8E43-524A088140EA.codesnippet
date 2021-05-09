@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDECodeSnippetCompletionPrefix</key>
+	<string>xy_newImageView</string>
+	<key>IDECodeSnippetCompletionScopes</key>
+	<array>
+		<string>All</string>
+	</array>
+	<key>IDECodeSnippetContents</key>
+	<string>UIImageView *icon = [UIImageView new];
+    icon.image = [UIImage imageNamed:@""];
+    [self addSubview:icon];
+    
+    [icon mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(self).offset(15);
+        make.left.equalTo(self).offset(15);
+    }];</string>
+	<key>IDECodeSnippetIdentifier</key>
+	<string>F9A8D1DF-C79B-4F5A-8E43-524A088140EA</string>
+	<key>IDECodeSnippetLanguage</key>
+	<string>Xcode.SourceCodeLanguage.Objective-C</string>
+	<key>IDECodeSnippetSummary</key>
+	<string>xy_newImageView</string>
+	<key>IDECodeSnippetTitle</key>
+	<string>xy_newImageView</string>
+	<key>IDECodeSnippetUserSnippet</key>
+	<true/>
+	<key>IDECodeSnippetVersion</key>
+	<integer>2</integer>
+</dict>
+</plist>

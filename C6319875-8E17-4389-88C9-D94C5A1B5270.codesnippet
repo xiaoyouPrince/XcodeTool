@@ -98,7 +98,7 @@
 	<key>IDECodeSnippetIdentifier</key>
 	<string>C6319875-8E17-4389-88C9-D94C5A1B5270</string>
 	<key>IDECodeSnippetLanguage</key>
-	<string>Xcode.SourceCodeLanguage.Generic</string>
+	<string>Xcode.SourceCodeLanguage.Objective-C</string>
 	<key>IDECodeSnippetSummary</key>
 	<string>xy_vc_init</string>
 	<key>IDECodeSnippetTitle</key>

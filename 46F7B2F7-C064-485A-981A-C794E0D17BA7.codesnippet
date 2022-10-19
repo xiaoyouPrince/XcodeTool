@@ -60,7 +60,7 @@
 	<key>IDECodeSnippetIdentifier</key>
 	<string>46F7B2F7-C064-485A-981A-C794E0D17BA7</string>
 	<key>IDECodeSnippetLanguage</key>
-	<string>Xcode.SourceCodeLanguage.Generic</string>
+	<string>Xcode.SourceCodeLanguage.Objective-C</string>
 	<key>IDECodeSnippetSummary</key>
 	<string>xy_view_init</string>
 	<key>IDECodeSnippetTitle</key>

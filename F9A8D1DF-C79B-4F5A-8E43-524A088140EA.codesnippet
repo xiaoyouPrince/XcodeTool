@@ -9,7 +9,7 @@
 		<string>All</string>
 	</array>
 	<key>IDECodeSnippetContents</key>
-	<string>UIImageView *icon = [UIImageView new];
+	<string>    UIImageView *icon = [UIImageView new];
     icon.image = [UIImage imageNamed:@""];
     [self addSubview:icon];
     

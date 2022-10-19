@@ -9,7 +9,7 @@
 		<string>All</string>
 	</array>
 	<key>IDECodeSnippetContents</key>
-	<string>UILabel *dateLabel = [[UILabel alloc] init];
+	<string>    UILabel *dateLabel = [[UILabel alloc] init];
     [dateLabel xy_setText:@"计划出行日期" font:[UIFont boldSystemFontOfSize:12] textColor:UIColor.blackColor];
     [self.contentView addSubview:dateLabel];
 

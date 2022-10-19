@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDECodeSnippetCompletionPrefix</key>
+	<string>zl_newRouter_Swift</string>
+	<key>IDECodeSnippetCompletionScopes</key>
+	<array>
+		<string>TopLevel</string>
+	</array>
+	<key>IDECodeSnippetContents</key>
+	<string>import UIKit
+import Router
+import Shared
+import ModularKit
+import ZLService
+
+// MARK: - 注册页面路由相关
+/// 找到模块声明文件 如: ZLHomeModule
+
+public enum ZLHomePage: String {
+    /// 极速处理落地页
+    case salesRecommand = "/MessageModule/native/SpeedProcessActivity"
+}
+
+public class ZLHomeModule: NSObject, ModuleType {
+    /// App启动后只会调用一次注册方法，身份切换也不再调用
+    public static func register() {
+        RoutingTable.register([
+            
+            ZLHomePage.salesRecommand.rawValue : .init(ZLSRViewController.self)
+        ])
+        
+        /// 注册协议
+        Service&lt;ZLHomeServiceProtocol&gt;.register {
+            ZLHomeService.shared
+        }
+    }
+}
+
+
+// MARK: - 路由跳转，页面/参数构建
+/// 找到模块路由文件 如: ZLHomeRoute
+
+extension ZLSRViewController: ContainerRoute {
+    
+    static func build&lt;Input&gt;(from: Input, context: [String : Any]) throws -&gt; ZLSRViewController {
+        let vc = ZLSRViewController()
+        
+//        typealias Block = @convention(block) () -&gt; Void
+//        if let callBack = context["callBack"], let block = unsafeBitCast(callBack as? AnyObject, to: Block.self) as? Block {
+//            vc.callBack = block
+//        }
+        vc.packageID = context["packageID"] as? Int
+        vc.topPackageAndResumeId = context["topPackageAndResumeId"] as? String
+        
+        return vc
+    }
+    
+    /// 此方法作用：暴露对外参数。Key 对外参数，Value 是页面自己属性值。调用方传值(Key)就会直接映射到(Value)
+    /// - 如果不用此方法，可以用上面 build 函数，手动解析入参，比如回调函数 block 入参只能用上面方法手动解析
+    /// - 此方法可以非常方便的给外界定义传参数，如新增一个 aaa 参数。直接写到下面(对应页面有接收)即可
+//    static var contexts: [String : ContextKeyPath&lt;ZLSRViewController&gt;] {[
+//        "webUrl" : .init(\.webUrl)
+//    ]}
+}
+
+
+// MARK: - 对外提供 Service 服务
+/// 找到模块Service文件 如: ZLHomeService
+
+class ZLHomeService: NSObject, ZLHomeServiceProtocol {
+    public static let shared = ZLHomeService()
+    
+    func resumeExposeVCSetup() {
+        ZLResumeExposeViewController.setUp()
+    }
+}
+</string>
+	<key>IDECodeSnippetIdentifier</key>
+	<string>C33EED6A-F478-4706-9AA4-D810EE4BEBDD</string>
+	<key>IDECodeSnippetLanguage</key>
+	<string>Xcode.SourceCodeLanguage.Swift</string>
+	<key>IDECodeSnippetSummary</key>
+	<string>创建新路由，新模块内页面</string>
+	<key>IDECodeSnippetTitle</key>
+	<string>zl_newRouter_Swift</string>
+	<key>IDECodeSnippetUserSnippet</key>
+	<true/>
+	<key>IDECodeSnippetVersion</key>
+	<integer>2</integer>
+</dict>
+</plist>

@@ -20,10 +20,10 @@
 	<key>IDECodeSnippetSummary</key>
 	<string>指定大小，button 需要反转layer</string>
 	<key>IDECodeSnippetTitle</key>
-	<string>设置渐变色_Swift</string>
+	<string>zl_setGradient_Swift</string>
 	<key>IDECodeSnippetUserSnippet</key>
 	<true/>
 	<key>IDECodeSnippetVersion</key>
-	<integer>0</integer>
+	<integer>2</integer>
 </dict>
 </plist>

@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDECodeSnippetCompletionPrefix</key>
+	<string>zl_navigation_Swift</string>
+	<key>IDECodeSnippetCompletionScopes</key>
+	<array>
+		<string>All</string>
+	</array>
+	<key>IDECodeSnippetContents</key>
+	<string>/// 1. 导航跳转到指定路由，参数，方式
+let path = "/MessageModule/native/SpeedProcessActivity"
+&lt;#controller#&gt;.navigationController?.router.navigate(to: path, context: [:] as? [String : Any], transition: .push())
+
+/// 2. 导航跳转到指定 Weex 页面，参数，方式 --  这个方式是走的预上线环境的 weex 地址
+// BaseURL.bapiBaseURL // https://rd-pre.zhaopin.com/api
+let baseUrl = BaseURL.bapiBaseURL.host ?? ""
+var url = "\(baseUrl)/weex/b-resume-consultant-recommend?pageCode=\(self.pageCode() ?? "")"
+//url += "accountId=\(rootSourceId)&amp;" // 加参数
+ZLRouterInterface.nativeNavigationWeex(self, weexUrl: url, isTopping: true, isBottoming: true) { [weak self] (result) in
+    // weex 处理完成回调 - 做自己的事件
+}
+
+/*
+ 直接指定完整 weex.js 路径的方式是跳转到 weex 页面，可以直接在weex本地联调
+ let url = "https://weex/bapp-new-resume-collection.weex.js"
+ ZLRouterInterface.nativeNavigationWeex(sourceController, weexUrl: url, statusBarStyle: 0, isTopping: false, isBottoming: false, params: ["messageCount":"2"])
+ */
+
+/// 3. 跳转到 H5
+var host = "https://m-pre.zhaopin.com"
+#if DEBUG
+host = "https://m-pre.zhaopin.com"
+#else
+host = "https://m.zhaopin.com"
+#endif
+let fullLinkText = "\(host)/mapp/secure-link?link=" + linkText
+
+// C 端新容器
+let dic = ["urlStr": fullLinkText, "VEH5Container": true] as [String : Any]
+self.navigationController?.router.navigate(to: "/base/webview/common", context: dic, transition: .push())
+//
+// 调整，B 端跳旧容器，需要用B原来逻辑
+let oldWebUrl = "/WebModule/web/webPage?webUrl=" + fullLinkText
+ZLRouterInterface.navigationWithUrl(oldWebUrl, openType: .push, pageType: .h5)
+</string>
+	<key>IDECodeSnippetIdentifier</key>
+	<string>50575DA8-94B2-4549-B954-2DEA50DD4C18</string>
+	<key>IDECodeSnippetLanguage</key>
+	<string>Xcode.SourceCodeLanguage.Swift</string>
+	<key>IDECodeSnippetSummary</key>
+	<string>路由跳转到目标页</string>
+	<key>IDECodeSnippetTitle</key>
+	<string>zl_navigation_Swift</string>
+	<key>IDECodeSnippetUserSnippet</key>
+	<true/>
+	<key>IDECodeSnippetVersion</key>
+	<integer>0</integer>
+</dict>
+</plist>

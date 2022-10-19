@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDECodeSnippetCompletionPrefix</key>
+	<string>zl_newApi</string>
+	<key>IDECodeSnippetCompletionScopes</key>
+	<array>
+		<string>TopLevel</string>
+	</array>
+	<key>IDECodeSnippetContents</key>
+	<string>import Foundation
+import Configuration
+import Network
+import ZLNetworking
+
+enum &lt;#name#&gt;Api &lt;ResultType: ResponseConvertible&gt; {
+    case list(_ page: Int)
+    case count
+}
+
+extension &lt;#name#&gt;Api: ZLBaseBapiType {
+    var baseURL: URL {
+        switch self {
+        default:
+            return BaseURL.cgateBaseURL
+        }
+    }
+    
+    var path: String {
+        switch self {
+        case .list:
+            return "/mbInteraction/list/listSystemNotification"
+        case .count:
+            return "/mbInteraction/info/countNewSystemNotification"
+        }
+    }
+    
+    var method: Moya.Method {
+        switch self {
+        default:
+            return .post
+        }
+    }
+    
+    var parameters: [String : Any]? {
+        switch self {
+        case .list(let page):
+            return ["pageNo": page, "pageSize": 50]
+        default:
+            return [:]
+        }
+    }
+}
+
+/* 模型示例 */
+/// 消息列表数据模型
+class ZLMessageList:  Model, ResponseConvertible, ResponseModel {
+    
+    var sessionItems: [ZLNewMessageListModel] = []
+    
+    var traceid = ""
+    
+    static func keyDecodingStrategy() -&gt; [ModelKey : JSONKey] {
+        [
+            "sessionItems" : "data.sessionItems",
+            "traceid" : "taskId"
+        ]
+    }
+}
+
+/// 通知中心 未读数
+struct NotityCenterUnreadCount: Model, ResponseConvertible, ResponseModel {
+    
+    let count: Int
+    
+    static var keyPath: String? { "data" }
+    
+}
+/* 示例结束 */
+
+struct ZLSRNetTool {
+    
+    typealias SuccessCallback = ([String: Any])-&gt;()
+    typealias FailureCallback = (String)-&gt;()
+    
+    static var netEnable: Bool {
+        ZPMNetworkReachabilityManager.share.isReachable()
+    }
+    
+    
+    /// 请求职位总数量
+    /// - Parameters:
+    ///   - params: parameters
+    ///   - success: successCallBack
+    ///   - failure: failure description
+    static func requestForTotalCount(with params:[String: Any], success: @escaping SuccessCallback, failure: @escaping FailureCallback){
+        
+        let target = NotityCenterApi&lt;NotityCenterUnreadCount&gt;.count
+        Network.request(target) { result in
+            switch result {
+            case .success(let model):
+                callback(model.count)
+            case .failure(let error):
+                callback(0)
+            }
+        }
+    }
+    
+    
+    /// 请求候选人列表
+    /// - Parameters:
+    ///   - params: 入参
+    ///   - success: 成功
+    ///   - failure: 失败
+    static func requestForCandidateList(with params:[String: Any], success: @escaping SuccessCallback, failure: @escaping FailureCallback){
+        //Toast.makeActivity()
+        let target = ZLSalesRecommandApi&lt;[String : Any]&gt;.ListRecommandResumeBaseData(params: params)
+        Network.request(target) { result in
+            //Toast.hideActivity()
+            switch result {
+            case .success(let response):
+                guard let data = ZLNetworkingTool.handleResponseData(dict: response) as? [String: Any] else {
+                    success([:])
+                    return
+                }
+
+                // to do ...
+                success(data)
+                break
+            case .failure(let error):
+                let errorInfo = ZLNetworkingTool.failureHandle(error)
+                //Toast.make(errorInfo?.message ?? "网络开小差啦～")
+                failure(errorInfo?.message ?? "网络开小差啦～")
+            }
+        }
+    }
+}
+</string>
+	<key>IDECodeSnippetIdentifier</key>
+	<string>2310F412-40F4-4392-92AF-37E6EBA0F540</string>
+	<key>IDECodeSnippetLanguage</key>
+	<string>Xcode.SourceCodeLanguage.Swift</string>
+	<key>IDECodeSnippetSummary</key>
+	<string>创建新的网络接口和NetTool</string>
+	<key>IDECodeSnippetTitle</key>
+	<string>zl_newApi_Swift</string>
+	<key>IDECodeSnippetUserSnippet</key>
+	<true/>
+	<key>IDECodeSnippetVersion</key>
+	<integer>0</integer>
+</dict>
+</plist>

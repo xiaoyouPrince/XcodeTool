@@ -25,9 +25,9 @@ params setSafeObject:&lt;#(id)#&gt; forKey:&lt;#(id&lt;NSCopying&gt;)#&gt;
 	<key>IDECodeSnippetLanguage</key>
 	<string>Xcode.SourceCodeLanguage.Objective-C</string>
 	<key>IDECodeSnippetSummary</key>
-	<string>network_request</string>
+	<string>网络请求</string>
 	<key>IDECodeSnippetTitle</key>
-	<string>network_request</string>
+	<string>network_request_OC</string>
 	<key>IDECodeSnippetUserSnippet</key>
 	<true/>
 	<key>IDECodeSnippetVersion</key>

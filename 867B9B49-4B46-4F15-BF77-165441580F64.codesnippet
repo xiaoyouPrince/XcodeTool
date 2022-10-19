@@ -3,29 +3,27 @@
 <plist version="1.0">
 <dict>
 	<key>IDECodeSnippetCompletionPrefix</key>
-	<string>make_constraints</string>
+	<string>zl_setGradient</string>
 	<key>IDECodeSnippetCompletionScopes</key>
 	<array>
 		<string>All</string>
 	</array>
 	<key>IDECodeSnippetContents</key>
-	<string>[&lt;#cycleScrollView#&gt; mas_makeConstraints:^(MASConstraintMaker *make) {
- make.top.equalTo(&lt;#self#&gt;).offset(15);
-        make.left.equalTo(&lt;#self#&gt;).offset(15);
-        make.right.equalTo(&lt;#self#&gt;).offset(-15);
-        make.bottom.equalTo(&lt;#self#&gt;).offset(-23);
-    }];</string>
+	<string>setNeedsLayout()
+        layoutIfNeeded()
+&lt;#tagBtn#&gt;.addGradientLayer(colors: [kHexColor(0x6F71E8).cgColor, kHexColor(0x6E67D7).cgColor], direction: .horizontal)
+&lt;#tagBtn#&gt;.layer.sublayers?.reverse()</string>
 	<key>IDECodeSnippetIdentifier</key>
-	<string>51E696AD-3344-4EBB-AD30-88803871E0E9</string>
+	<string>867B9B49-4B46-4F15-BF77-165441580F64</string>
 	<key>IDECodeSnippetLanguage</key>
-	<string>Xcode.SourceCodeLanguage.Objective-C</string>
+	<string>Xcode.SourceCodeLanguage.Swift</string>
 	<key>IDECodeSnippetSummary</key>
-	<string>给UIView设置约束</string>
+	<string>指定大小，button 需要反转layer</string>
 	<key>IDECodeSnippetTitle</key>
-	<string>make_constraints_OC</string>
+	<string>设置渐变色_Swift</string>
 	<key>IDECodeSnippetUserSnippet</key>
 	<true/>
 	<key>IDECodeSnippetVersion</key>
-	<integer>2</integer>
+	<integer>0</integer>
 </dict>
 </plist>

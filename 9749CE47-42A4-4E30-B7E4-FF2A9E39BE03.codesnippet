@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDECodeSnippetCompletionPrefix</key>
+	<string>xy_make_request</string>
+	<key>IDECodeSnippetCompletionScopes</key>
+	<array>
+		<string>All</string>
+	</array>
+	<key>IDECodeSnippetContents</key>
+	<string>// import ToastUtils
+// import Network
+// import ZLNetworking
+
+Toast.makeActivity()
+let target = ZLIMApi&lt;[String : Any]&gt;.getStaffPhraseList
+Network.request(target) { [weak self] result in
+    Toast.hideActivity()
+    guard let self = self else {return}
+    switch result {
+    case .success(let response):
+        guard let data = ZLNetworkingTool.handleResponseData(dict: response) as? [String: Any] else {
+            return
+        }
+        
+        // to do ...
+        break
+    case .failure(let error):
+        let errorInfo = ZLNetworkingTool.failureHandle(error)
+        Toast.make(errorInfo?.message ?? "网络异常")
+    }
+}</string>
+	<key>IDECodeSnippetIdentifier</key>
+	<string>9749CE47-42A4-4E30-B7E4-FF2A9E39BE03</string>
+	<key>IDECodeSnippetLanguage</key>
+	<string>Xcode.SourceCodeLanguage.Swift</string>
+	<key>IDECodeSnippetSummary</key>
+	<string>做一个网络请求的代码</string>
+	<key>IDECodeSnippetTitle</key>
+	<string>请求接口</string>
+	<key>IDECodeSnippetUserSnippet</key>
+	<true/>
+	<key>IDECodeSnippetVersion</key>
+	<integer>2</integer>
+</dict>
+</plist>

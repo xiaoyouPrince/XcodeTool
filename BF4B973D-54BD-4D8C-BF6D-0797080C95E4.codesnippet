@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDECodeSnippetCompletionPrefix</key>
+	<string>xy_make_constraints</string>
+	<key>IDECodeSnippetCompletionScopes</key>
+	<array>
+		<string>All</string>
+	</array>
+	<key>IDECodeSnippetContents</key>
+	<string>&lt;#label#&gt;.snp.makeConstraints { make in
+    make.left.equalTo(nameLabel.snp.right).offset(1)
+    make.centerY.equalTo(nameLabel)
+    make.width.equalTo(8)
+    make.height.equalTo(2)
+}</string>
+	<key>IDECodeSnippetIdentifier</key>
+	<string>BF4B973D-54BD-4D8C-BF6D-0797080C95E4</string>
+	<key>IDECodeSnippetLanguage</key>
+	<string>Xcode.SourceCodeLanguage.Swift</string>
+	<key>IDECodeSnippetSummary</key>
+	<string>给 UIView 添加约束，依赖 Snapkit</string>
+	<key>IDECodeSnippetTitle</key>
+	<string>设置约束</string>
+	<key>IDECodeSnippetUserSnippet</key>
+	<true/>
+	<key>IDECodeSnippetVersion</key>
+	<integer>2</integer>
+</dict>
+</plist>

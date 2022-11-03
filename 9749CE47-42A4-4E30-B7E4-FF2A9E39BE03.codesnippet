@@ -24,7 +24,7 @@ Network.request(target) { [weak self] result in
             return
         }
         
-        // to do ...
+        // get data &amp; to do ...
         break
     case .failure(let error):
         let errorInfo = ZLNetworkingTool.failureHandle(error)

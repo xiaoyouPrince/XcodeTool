@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDECodeSnippetCompletionPrefix</key>
+	<string>xy_update_msg</string>
+	<key>IDECodeSnippetCompletionScopes</key>
+	<array>
+		<string>All</string>
+	</array>
+	<key>IDECodeSnippetContents</key>
+	<string>// 消息更新
+                                            guard let model = self?.interactor?.findMessageModel(message), let tableView = self?.tableView, let session = self?.messageDetailModel?.session?.session else {
+                                                return
+                                            }
+                                            message.localExt = ["state":"3"]
+                                            NIMSDK.shared().conversationManager.update(message, for: session) { (error) in
+                                                if error == nil {
+                                                    self?.uiUpdate(message)
+                                                }
+                                            }</string>
+	<key>IDECodeSnippetIdentifier</key>
+	<string>E101852B-03F6-42C2-A655-5840E23912DB</string>
+	<key>IDECodeSnippetLanguage</key>
+	<string>Xcode.SourceCodeLanguage.Swift</string>
+	<key>IDECodeSnippetSummary</key>
+	<string>更新消息，并同步刷新UI</string>
+	<key>IDECodeSnippetTitle</key>
+	<string>xy_update_msg</string>
+	<key>IDECodeSnippetUserSnippet</key>
+	<true/>
+	<key>IDECodeSnippetVersion</key>
+	<integer>0</integer>
+</dict>
+</plist>

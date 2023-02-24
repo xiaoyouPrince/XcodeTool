@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDECodeSnippetCompletionPrefix</key>
+	<string>create_msg_card_simple_content</string>
+	<key>IDECodeSnippetCompletionScopes</key>
+	<array>
+		<string>All</string>
+	</array>
+	<key>IDECodeSnippetContents</key>
+	<string>import Foundation
+
+// MARK: - type: &lt;#142#&gt;
+struct &lt;#CUserSignInAttachment#&gt;: ContentAttachment, SimleContentData {
+    
+    // 协议参数
+    var iconName: String = "IM_icon_签到"
+    var iconUrl: String = ""
+    var contentText: String = "" // 文本内容
+    var btnData: BtnData?
+    var exposeName: String = "interview_sign_expose"
+    var exposeParams: [String: Any] = [:]
+    var isShowReadState: Bool { false }
+    
+    // 自定义属性
+    var contentHeight: CGFloat = 100
+    
+    // 中台接口参数
+    var title: String = ""                  // 内容
+    var rootOrgId: String = ""              // 总公司ID
+    var interviewId: String = ""            // 面试ID
+    var jobNumber: String = ""              // 职位编号
+    var longitude: CLLocationDegrees = 0    // 经度
+    var latitude: CLLocationDegrees = 0     // 纬度
+    
+    
+    init(_ dic: [String : Any]) {
+        title       = dic["title"] as? String ?? ""
+        rootOrgId   = dic["rootOrgId"] as? String ?? ""
+        interviewId = dic["interviewId"] as? String ?? ""
+        jobNumber   = dic["jobNumber"] as? String ?? ""
+        longitude   = dic["longitude"] as? CLLocationDegrees ?? 0
+        latitude    = dic["latitude"] as? CLLocationDegrees ?? 0
+        
+        
+        contentText = title
+        contentHeight = NSAttributedString(text: contentText, color: UIColor.C_222222, font: UIFont.PF_16_Normal)
+            .getSize(.width - 128 - 80, .greatestFiniteMagnitude).height
+        btnData = .init(leftText: "稍等, 马上到", rightText: "我已到达")
+    }
+}
+
+extension &lt;#CUserSignInAttachment#&gt;: ContentLayout {
+    
+    func cellContent(_ model: NIMMessageModel) -&gt; MessageContentView.Type {
+        SimpleContentView.self
+    }
+    
+    func contentSize(_ model: NIMMessageModel, cellWidth width: CGFloat) -&gt; CGSize {
+        .init(width: .width - 128, height: max(contentHeight + 77, 120))
+    }
+}
+</string>
+	<key>IDECodeSnippetIdentifier</key>
+	<string>53AFC292-9EE4-48CB-BE39-44C119ABC690</string>
+	<key>IDECodeSnippetLanguage</key>
+	<string>Xcode.SourceCodeLanguage.Swift</string>
+	<key>IDECodeSnippetSummary</key>
+	<string>卡片： icon + content + bottomBtns 【只有一个内容，无主副标题之分】</string>
+	<key>IDECodeSnippetTitle</key>
+	<string>卡片： icon + contentText + bottomBtns</string>
+	<key>IDECodeSnippetUserSnippet</key>
+	<true/>
+	<key>IDECodeSnippetVersion</key>
+	<integer>2</integer>
+</dict>
+</plist>

@@ -1,0 +1,221 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDECodeSnippetCompletionPrefix</key>
+	<string>create_msg_card_custom</string>
+	<key>IDECodeSnippetCompletionScopes</key>
+	<array>
+		<string>All</string>
+	</array>
+	<key>IDECodeSnippetContents</key>
+	<string>
+/// -----------  attachment -------------
+
+import Foundation
+
+// MARK: - type: &lt;#170#&gt;
+struct &lt;#WatchVideoAttachment#&gt;: ContentAttachment {
+    
+    // 消息模型参数
+    var title: String?
+    var coverUrl: String?
+    var videoId: String?
+    var videoTypeName: String?
+    var sourceUrl: String?
+    
+    // 自定义属性
+    var attributedText: NSAttributedString?
+    var exposeName: String = "liveshow_exposure"
+    var exposeParams: [String: Any] = [:]
+    
+    // 协议方法
+    var isShowReadState: Bool { false }
+    
+    init(_ dic: [String : Any]) {
+        Console.log(dic)
+        
+        title            = dic["title"] as? String
+        coverUrl         = dic["coverUrl"] as? String
+        videoId          = dic["videoId"] as? String
+        videoTypeName    = dic["videoTypeName"] as? String
+        sourceUrl        = dic["sourceUrl"] as? String
+        
+        attributedText = NSAttributedString(string: title.default, attributes: attribute)
+        exposeParams = [
+            "liveshow_type": "2",
+            "liveshow_status": 0,
+            "liveshow_url": sourceUrl ?? ""
+        ]
+    }
+    
+    var cellContentHeight: CGFloat {
+        guard let attributedText = attributedText else { return 0 }
+        let titleHeight = attributedText.boundingRect(with: CGSize(.width - 123 - 87, CGFloat.greatestFiniteMagnitude), options: .usesLineFragmentOrigin, context: nil).size.height + 10 + 10
+        let imageHeight: CGFloat = 46 + 10 + 10
+        return max(titleHeight, imageHeight)
+    }
+    
+    var attribute: [NSAttributedString.Key: Any]? {
+        var attr: [NSAttributedString.Key: Any] = [:]
+        attr[.font] = UIFont.regular_15
+        let style = NSMutableParagraphStyle()
+        style.lineSpacing = 6.0
+        attr[.paragraphStyle] = style
+        attr[.foregroundColor] = UIColor.ZP666666
+        return attr
+    }
+}
+
+extension &lt;#WatchVideoAttachment#&gt;: ContentLayout {
+    func cellContent(_ model: NIMMessageModel) -&gt; MessageContentView.Type {
+        &lt;#WatchVideoView#&gt;.self
+    }
+    
+    func cellInsets(_ model: NIMMessageModel) -&gt; MarginType {
+        .card
+    }
+    
+    func contentSize(_ model: NIMMessageModel, cellWidth width: CGFloat) -&gt; CGSize {
+        CGSize(.width - 137, cellContentHeight)
+    }
+    
+    func shouldShowAvatar(_ model: NIMMessageModel) -&gt; Bool {
+        true
+    }
+}
+
+
+/// ----------- customView -------------
+
+
+import UIKit
+
+// MARK: - &lt;#170#&gt;
+class &lt;#WatchVideoView#&gt;: MessageContentView {
+    
+    private let contentView = UIView()
+    
+    private lazy var tipLabel: UILabel = {
+        let label = UILabel()
+        label.numberOfLines = 0
+        label.font = .regular_15
+        return label
+    }()
+    
+    private lazy var backImage: UIImageView = {
+        let img = UIImageView()
+        img.isUserInteractionEnabled = true
+        return img
+    }()
+    
+    private lazy var lookButton: UIButton = {
+        let btn = UIButton()
+        btn.setImage(UIImage(named: "playVideo"), for: .normal)
+        btn.addTarget(self, action: #selector(gotoVideo), for: .touchUpInside)
+        return btn
+    }()
+    
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+    }
+    
+    override init!(sessionMessageContentView: ()) {
+        super.init(sessionMessageContentView: ())
+        setupUI()
+        layout()
+        attachGesture()
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    override func refresh(_ data: NIMMessageModel?) {
+        super.refresh(data)
+        guard let message = data, let attachment = data?.attachment?.attachment as? &lt;#WatchVideoAttachment#&gt; else {
+            return
+        }
+        tipLabel.attributedText = attachment.attributedText;
+        backImage.setImage(url: attachment.coverUrl)
+    }
+    
+    @objc func gotoVideo() {
+        action?.click(model, userInfo: [:])
+    }
+}
+
+// MARK: UI
+private extension &lt;#WatchVideoView#&gt; {
+    
+    func setupUI() {
+        self.backgroundColor = .clear
+        contentView.backgroundColor = .clear
+        contentView.layer.cornerRadius = 6;
+        self.addSubview(contentView)
+        
+        contentView.addSubview(tipLabel)
+        contentView.addSubview(backImage)
+        backImage.addSubview(lookButton)
+    }
+    
+    func layout() {
+        contentView.snp.makeConstraints { make in
+            make.edges.equalToSuperview()
+        }
+        
+        tipLabel.snp.makeConstraints { make in
+            make.top.equalToSuperview()
+            make.left.equalToSuperview().offset(16)
+            make.bottom.equalToSuperview()
+            make.right.equalToSuperview().offset(-64)
+        }
+        
+        backImage.snp.makeConstraints { make in
+            make.right.equalToSuperview().offset(-10)
+            make.centerY.equalToSuperview()
+            make.size.equalTo(CGSize(width: 46, height: 46))
+        }
+        
+        lookButton.snp.makeConstraints { make in
+            make.edges.equalToSuperview()
+        }
+    }
+    
+    func attachGesture() {
+        let tapGesture: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(gotoVideo))
+        addGestureRecognizer(tapGesture)
+    }
+}
+
+
+extension &lt;#WatchVideoView#&gt; {
+    
+    override func expose(extraParams: [String : Any]?) {
+        super.expose(extraParams: extraParams)
+        guard let attachment = model.customAttachment as? MessageAttachment ,
+              let content = attachment.attachment as? &lt;#WatchVideoAttachment#&gt;,
+              content.exposeName.isEmpty == false else {
+            return
+        }
+        let params = extraParams ?? [:]
+        self.action?.track(name: content.exposeName, params: params.merging(content.exposeParams) { $1 })
+    }
+}
+</string>
+	<key>IDECodeSnippetIdentifier</key>
+	<string>3B9E69CC-D204-4078-B08E-26ACCD1491FE</string>
+	<key>IDECodeSnippetLanguage</key>
+	<string>Xcode.SourceCodeLanguage.Swift</string>
+	<key>IDECodeSnippetPlatformFamily</key>
+	<string>iphoneos</string>
+	<key>IDECodeSnippetSummary</key>
+	<string>完全自定义消息卡片，无需模版</string>
+	<key>IDECodeSnippetTitle</key>
+	<string>create_msg_card_custom</string>
+	<key>IDECodeSnippetUserSnippet</key>
+	<true/>
+	<key>IDECodeSnippetVersion</key>
+	<integer>2</integer>
+</dict>
+</plist>

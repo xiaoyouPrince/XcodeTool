@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDECodeSnippetCompletionPrefix</key>
+	<string>xy_new_label_Swift</string>
+	<key>IDECodeSnippetCompletionScopes</key>
+	<array>
+		<string>CodeBlock</string>
+	</array>
+	<key>IDECodeSnippetContents</key>
+	<string>let typeLabel = UILabel(title: "提现", font: .systemFont(ofSize: 17), textColor: .black, textAlignment: .center)
+        addSubview(typeLabel)
+        typeLabel.snp.makeConstraints { make in
+            make.centerY.equalTo(closeBtn)
+            make.centerX.equalToSuperview()
+            make.top.equalTo(titleLabel.snp.bottom).offset(25)
+        }</string>
+	<key>IDECodeSnippetIdentifier</key>
+	<string>8C98F797-4DFB-4ABF-9CC7-5F686FDB6E5C</string>
+	<key>IDECodeSnippetLanguage</key>
+	<string>Xcode.SourceCodeLanguage.Swift</string>
+	<key>IDECodeSnippetSummary</key>
+	<string>新创建并添加一个label</string>
+	<key>IDECodeSnippetTitle</key>
+	<string>xy_new_label_Swift</string>
+	<key>IDECodeSnippetUserSnippet</key>
+	<true/>
+	<key>IDECodeSnippetVersion</key>
+	<integer>2</integer>
+</dict>
+</plist>

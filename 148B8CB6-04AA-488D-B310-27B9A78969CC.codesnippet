@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDECodeSnippetCompletionPrefix</key>
+	<string>xy_jiugongge</string>
+	<key>IDECodeSnippetCompletionScopes</key>
+	<array>
+		<string>All</string>
+	</array>
+	<key>IDECodeSnippetContents</key>
+	<string>/// 一个简单的九宫格布局
+/// - Parameters:
+///   - subViews: 要被布局的子视图
+///   - superView: 要放到哪个父控制器中
+///   - cloum: 列数
+///   - margin: 列间距
+///   - vm: 行间距
+///   - totalWidth: 总共多宽, 默认屏幕宽度
+///   - itemH: 每行的行高
+/// - Returns: 布局之后的容器视图
+@discardableResult
+func xy_jiugonggeLayout(subViews: [UIView], superView: UIView, topInset: CGFloat, totalWidth: CGFloat, cloum: Int, itemH: CGFloat, margin: CGFloat, vMargin vm: CGFloat) -&gt; UIView {
+    if cloum &lt;= 0 { return .init()}
+    
+    let containerView = UIView()
+    let itemViews = subViews
+    superView.addSubview(containerView)
+    
+    let cloum: CGFloat = CGFloat(cloum)
+    let margin: CGFloat = margin
+    let vMargin: CGFloat = vm
+    let totalWidth = totalWidth //CGFloat.width - 54
+    let itemW: CGFloat = (totalWidth - (cloum - 1) * margin) / cloum
+    let itemH = itemH
+    
+    for (idx, item) in itemViews.enumerated() {
+        containerView.addSubview(item)
+        item.snp.makeConstraints { make in
+            make.width.equalTo(itemW)
+            make.height.equalTo(itemH)
+            make.left.equalTo( CGFloat(idx % Int(cloum)) * (itemW + margin) )
+            make.top.equalTo( CGFloat(idx / Int(cloum)) * (itemH + vMargin))
+        }
+    }
+    
+    containerView.snp.makeConstraints { make in
+        make.width.equalTo(totalWidth)
+        make.center.equalToSuperview()
+        make.top.equalToSuperview().offset(topInset)
+        make.bottom.equalTo(containerView.subviews.last!)
+    }
+    
+    return containerView
+}
+
+/// 一个简单的九宫格布局, 无关宽度, 以中心点定位
+/// - Parameters:
+///   - subViews: 要被布局的子视图
+///   - superView: 要放到哪个父控制器中
+///   - cloum: 列数
+///   - margin: 列间距
+///   - vm: 行间距
+///   - totalWidth: 总共多宽, 默认屏幕宽度
+///   - itemH: 每行的行高
+/// - Returns: 布局之后的容器视图
+@discardableResult
+func xy_jiugonggeLayout(subViews: [UIView], superView: UIView, topInset: CGFloat,  totalWidth: CGFloat, cloum: Int, itemH: CGFloat, vMargin : CGFloat) -&gt; UIView {
+    if cloum &lt;= 0 { return .init()}
+    
+    let containerView = UIView()
+    let itemViews = subViews //imgNames.map({ UIImageView(named: $0) })
+    superView.addSubview(containerView)
+    
+    let cloum: CGFloat = CGFloat(cloum)
+    let vMargin: CGFloat = vMargin
+    let totalWidth = totalWidth //CGFloat.width - 54
+    let itemH: CGFloat = itemH
+    
+    for (idx, item) in itemViews.enumerated() {
+        containerView.addSubview(item)
+        item.snp.makeConstraints { make in
+            make.height.equalTo(itemH)
+            make.top.equalTo(CGFloat(idx / Int(cloum)) * (itemH + vMargin) )
+            make.centerX.equalToSuperview().multipliedBy(getCenterValue(cloum: Int(cloum), index: idx % Int(cloum)))
+        }
+    }
+    
+    /*
+     1 : 1
+     2 : 0.5    1.5
+     3 : 0.5    1   1.5
+     4 : 0.25   0.75    1.25    1.75
+     5 : 0.25   0.75    1   1.25    1.75
+     */
+    func getCenterValue(cloum: Int, index: Int) -&gt; CGFloat {
+        let map: [Int: [CGFloat]] = [
+            1 : [1],
+            2 : [0.5,    1.5],
+            3 : [0.5,    1,   1.5],
+            4 : [0.25,   0.75,    1.25,    1.75],
+            5 : [0.25,   0.75,    1,   1.25,    1.75],
+        ]
+        
+        return map[cloum]![index]
+    }
+    
+    containerView.snp.makeConstraints { make in
+        make.width.equalTo(totalWidth)
+        make.center.equalToSuperview()
+        make.top.equalToSuperview().offset(topInset)
+        make.bottom.equalTo(containerView.subviews.last!)
+    }
+    
+    return containerView
+}</string>
+	<key>IDECodeSnippetIdentifier</key>
+	<string>148B8CB6-04AA-488D-B310-27B9A78969CC</string>
+	<key>IDECodeSnippetLanguage</key>
+	<string>Xcode.SourceCodeLanguage.Swift</string>
+	<key>IDECodeSnippetSummary</key>
+	<string>xy_jiugongge</string>
+	<key>IDECodeSnippetTitle</key>
+	<string>xy_jiugongge</string>
+	<key>IDECodeSnippetUserSnippet</key>
+	<true/>
+	<key>IDECodeSnippetVersion</key>
+	<integer>2</integer>
+</dict>
+</plist>

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDECodeSnippetCompletionPrefix</key>
+	<string>xy_new_view_Swift</string>
+	<key>IDECodeSnippetCompletionScopes</key>
+	<array>
+		<string>CodeBlock</string>
+	</array>
+	<key>IDECodeSnippetContents</key>
+	<string>let line = UIView.line
+        addSubview(line)
+        line.snp.makeConstraints { make in
+            make.top.equalTo(moneyView.snp.bottom).offset(28)
+            make.left.equalTo(15)
+            make.right.equalTo(15)
+            make.height.equalTo(CGFloat.line)
+        }</string>
+	<key>IDECodeSnippetIdentifier</key>
+	<string>24BB1D25-F50D-4320-AB87-D9A0C99F1682</string>
+	<key>IDECodeSnippetLanguage</key>
+	<string>Xcode.SourceCodeLanguage.Swift</string>
+	<key>IDECodeSnippetSummary</key>
+	<string>创建并添加一个 UIView</string>
+	<key>IDECodeSnippetTitle</key>
+	<string>xy_new_view_Swift</string>
+	<key>IDECodeSnippetUserSnippet</key>
+	<true/>
+	<key>IDECodeSnippetVersion</key>
+	<integer>2</integer>
+</dict>
+</plist>

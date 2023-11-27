@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDECodeSnippetCompletionPrefix</key>
+	<string>xy_push_editVC_Swift</string>
+	<key>IDECodeSnippetCompletionScopes</key>
+	<array>
+		<string>All</string>
+	</array>
+	<key>IDECodeSnippetContents</key>
+	<string>let items: [EditItem] = [
+                .init(title: "昵称", key: "senderName", value: model.senderName),
+                .init(title: "头像", key: "senderIcon", image: model.senderIcon ?? .init()),
+                .init(title: "备注", key: "tipString", value: model.tipString),
+                .init(title: "金额", key: "moneyAmount", value: model.moneyAmount)
+            ]
+            self.pushEditVC(items) {[weak self] params in
+                guard let self = self else {return}
+                guard let model = self.model else {return}
+                model.senderName = params["senderName"] as? String
+                model.senderIcon = params["senderIcon"] as? UIImage
+                model.tipString = params["tipString"] as? String
+                model.moneyAmount = params["moneyAmount"] as? String
+                self.senderView.setup(with: model)
+            }
+</string>
+	<key>IDECodeSnippetIdentifier</key>
+	<string>E506C7DB-AB5E-4965-90CD-78E1AEBCECA8</string>
+	<key>IDECodeSnippetLanguage</key>
+	<string>Xcode.SourceCodeLanguage.Swift</string>
+	<key>IDECodeSnippetSummary</key>
+	<string>进入编辑页面</string>
+	<key>IDECodeSnippetTitle</key>
+	<string>xy_push_editVC_Swift</string>
+	<key>IDECodeSnippetUserSnippet</key>
+	<true/>
+	<key>IDECodeSnippetVersion</key>
+	<integer>2</integer>
+</dict>
+</plist>

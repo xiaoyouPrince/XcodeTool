@@ -17,16 +17,16 @@
  *  &lt;#2. ...#&gt;
  */</string>
 	<key>IDECodeSnippetIdentifier</key>
-	<string>8F9A7CC9-5AA7-40F7-B4DB-AE32B4C43FF7</string>
+	<string>039B2F59-E3B9-484E-9FD0-136B9C0EC499</string>
 	<key>IDECodeSnippetLanguage</key>
-	<string>Xcode.SourceCodeLanguage.Objective-C</string>
+	<string>Xcode.SourceCodeLanguage.Swift</string>
 	<key>IDECodeSnippetSummary</key>
-	<string>add todo thing</string>
+	<string>todo something</string>
 	<key>IDECodeSnippetTitle</key>
 	<string>todo</string>
 	<key>IDECodeSnippetUserSnippet</key>
 	<true/>
 	<key>IDECodeSnippetVersion</key>
-	<integer>2</integer>
+	<integer>0</integer>
 </dict>
 </plist>

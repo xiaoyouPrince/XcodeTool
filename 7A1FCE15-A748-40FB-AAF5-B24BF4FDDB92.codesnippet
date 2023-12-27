@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDECodeSnippetCompletionPrefix</key>
+	<string>use_swiftUI</string>
+	<key>IDECodeSnippetCompletionScopes</key>
+	<array>
+		<string>All</string>
+	</array>
+	<key>IDECodeSnippetContents</key>
+	<string>@objc
+    func btnClick(){
+        let detailVC = UIHostingController(rootView: body)
+        present(detailVC, animated: true)
+    }
+
+    
+    @ViewBuilder
+    var body: some View {
+        Text("哈哈哈你好!")
+            .onTapGesture {
+                self.dismiss(animated: true)
+            }.swingAnimation(duration: 2, distance: 100)
+    }</string>
+	<key>IDECodeSnippetIdentifier</key>
+	<string>7A1FCE15-A748-40FB-AAF5-B24BF4FDDB92</string>
+	<key>IDECodeSnippetLanguage</key>
+	<string>Xcode.SourceCodeLanguage.Swift</string>
+	<key>IDECodeSnippetSummary</key>
+	<string>use_swiftUI</string>
+	<key>IDECodeSnippetTitle</key>
+	<string>use_swiftUI</string>
+	<key>IDECodeSnippetUserSnippet</key>
+	<true/>
+	<key>IDECodeSnippetVersion</key>
+	<integer>2</integer>
+</dict>
+</plist>

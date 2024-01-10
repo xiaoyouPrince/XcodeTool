@@ -3,30 +3,26 @@
 <plist version="1.0">
 <dict>
 	<key>IDECodeSnippetCompletionPrefix</key>
-	<string>todo</string>
+	<string>unzipfile</string>
 	<key>IDECodeSnippetCompletionScopes</key>
 	<array>
 		<string>All</string>
 	</array>
 	<key>IDECodeSnippetContents</key>
-	<string>/*
- * - TODO -
- * &lt;#这里输入你要做的事情描述#&gt;
- * &lt;#这里输入你要做的事情的一些思路#&gt;
- *  &lt;#1. ...#&gt;
- *  &lt;#2. ...#&gt;
- */</string>
+	<string>if let savePath = filePath {
+                    SSZipArchive.unzipFile(atPath: savePath.path, toDestination: containerUrl!.path, preserveAttributes: true, overwrite: true, nestedZipLevel: 0, password: nil, error: nil, delegate: nil, progressHandler: nil, completionHandler: nil)
+                }</string>
 	<key>IDECodeSnippetIdentifier</key>
-	<string>039B2F59-E3B9-484E-9FD0-136B9C0EC499</string>
+	<string>57157A48-8B38-4246-96D9-A3F264017E32</string>
 	<key>IDECodeSnippetLanguage</key>
 	<string>Xcode.SourceCodeLanguage.Swift</string>
 	<key>IDECodeSnippetSummary</key>
-	<string>todo something</string>
+	<string>unzipfile</string>
 	<key>IDECodeSnippetTitle</key>
-	<string>todo</string>
+	<string>unzipfile</string>
 	<key>IDECodeSnippetUserSnippet</key>
 	<true/>
 	<key>IDECodeSnippetVersion</key>
-	<integer>2</integer>
+	<integer>0</integer>
 </dict>
 </plist>

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDECodeSnippetCompletionPrefix</key>
+	<string>SwiftUI_Text</string>
+	<key>IDECodeSnippetCompletionScopes</key>
+	<array>
+		<string>All</string>
+	</array>
+	<key>IDECodeSnippetContents</key>
+	<string>Text("2.提示截屏尺寸错误，怎么办？")
+    .font(.system(size: 12))
+    .fontWeight(.weight_500)
+    .foregroundColor(.C_333333)
+    .padding(.top, 10)</string>
+	<key>IDECodeSnippetIdentifier</key>
+	<string>09DD9C24-9981-4B8F-BF15-36AB402EE801</string>
+	<key>IDECodeSnippetLanguage</key>
+	<string>Xcode.SourceCodeLanguage.Swift</string>
+	<key>IDECodeSnippetSummary</key>
+	<string>SwiftUI_Text</string>
+	<key>IDECodeSnippetTitle</key>
+	<string>SwiftUI_Text</string>
+	<key>IDECodeSnippetUserSnippet</key>
+	<true/>
+	<key>IDECodeSnippetVersion</key>
+	<integer>2</integer>
+</dict>
+</plist>

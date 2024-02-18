@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDECodeSnippetCompletionPrefix</key>
+	<string>SwiftUI_ContainerView</string>
+	<key>IDECodeSnippetCompletionScopes</key>
+	<array>
+		<string>All</string>
+	</array>
+	<key>IDECodeSnippetContents</key>
+	<string>ContainerView({ dataModel in
+    let width: CGFloat = dataModel.widgetSize.width * w
+    let height: CGFloat = dataModel.widgetSize.height * h
+    let offsetX: CGFloat = dataModel.widgetSize.width * x
+    let offsetY: CGFloat = dataModel.widgetSize.height * y
+    
+    let width: CGFloat = dataModel.widgetSize.width * w.cgValue
+    let height: CGFloat = dataModel.widgetSize.height * h.cgValue
+    let offsetX: CGFloat = dataModel.widgetSize.width * x.cgValue
+    let offsetY: CGFloat = dataModel.widgetSize.height * y.cgValue
+    
+    let width: CGFloat = dataModel.widgetSize.width * model.w
+    let height: CGFloat = dataModel.widgetSize.height * model.h
+    let offsetX: CGFloat = dataModel.widgetSize.width * model.x
+    let offsetY: CGFloat = dataModel.widgetSize.height * model.y
+    
+    // add your real view here
+    // ...
+})</string>
+	<key>IDECodeSnippetIdentifier</key>
+	<string>343FA982-6494-429C-8DA4-80A97D2443DB</string>
+	<key>IDECodeSnippetLanguage</key>
+	<string>Xcode.SourceCodeLanguage.Swift</string>
+	<key>IDECodeSnippetSummary</key>
+	<string>SwiftUI_ContainerView</string>
+	<key>IDECodeSnippetTitle</key>
+	<string>SwiftUI_ContainerView</string>
+	<key>IDECodeSnippetUserSnippet</key>
+	<true/>
+	<key>IDECodeSnippetVersion</key>
+	<integer>0</integer>
+</dict>
+</plist>

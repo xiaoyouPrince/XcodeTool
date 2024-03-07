@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDECodeSnippetCompletionPrefix</key>
+	<string>SwiftUI_LazyVGrid</string>
+	<key>IDECodeSnippetCompletionScopes</key>
+	<array>
+		<string>All</string>
+	</array>
+	<key>IDECodeSnippetContents</key>
+	<string>ScrollView(.vertical, showsIndicators: false) {
+    LazyVGrid(columns: (0..&lt;columns).map({_ in GridItem(.flexible())}), pinnedViews: [], content: {
+        ForEach((0..&lt;groupModel.dataModels.count), content: { idx in
+            ZStack(content: {
+                if idx == selectedIndex {
+                    Color.green
+                    
+                    // widgetView
+                    
+                    // selectedIcon
+                    HStack {
+                        Spacer()
+                        VStack {
+                            Spacer()
+                            
+                            Image(uiImage: .templateSel).frame(width: 16, height: 16)
+                                .padding(8)
+                        }
+                    }
+                } else {
+                    Color.red
+                }
+            }).frame(width: itemWidth, height: itemHeight)
+                .onTapGesture {
+                    selectedIndex = idx
+                }
+        })
+    }).padding(.horizontal)
+}
+</string>
+	<key>IDECodeSnippetIdentifier</key>
+	<string>CAE03100-7705-463A-8D56-5E2AC7EA8E78</string>
+	<key>IDECodeSnippetLanguage</key>
+	<string>Xcode.SourceCodeLanguage.Swift</string>
+	<key>IDECodeSnippetSummary</key>
+	<string>SwiftUI_LazyVGrid</string>
+	<key>IDECodeSnippetTitle</key>
+	<string>SwiftUI_LazyVGrid</string>
+	<key>IDECodeSnippetUserSnippet</key>
+	<true/>
+	<key>IDECodeSnippetVersion</key>
+	<integer>0</integer>
+</dict>
+</plist>

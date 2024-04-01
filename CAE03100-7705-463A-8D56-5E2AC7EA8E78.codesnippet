@@ -9,36 +9,22 @@
 		<string>All</string>
 	</array>
 	<key>IDECodeSnippetContents</key>
-	<string>ScrollView(.vertical, showsIndicators: false) {
+	<string>let columns: Int = 2
+let itemWidth: CGFloat = ((.width - 32) - (CGFloat(columns) - 1) * 8) / CGFloat(columns) // 自定义两边 &amp; 内间距
+let itemHeight: CGFloat = itemWidth / 164 * 73 // 自定义宽高比例
+let list = dataArry // 数据源数组 或者其他自定义
+
+ScrollView(.vertical, showsIndicators: false) {
     LazyVGrid(columns: (0..&lt;columns).map({_ in GridItem(.flexible())}), pinnedViews: [], content: {
-        ForEach((0..&lt;groupModel.dataModels.count), content: { idx in
-            ZStack(content: {
-                if idx == selectedIndex {
-                    Color.green
-                    
-                    // widgetView
-                    
-                    // selectedIcon
-                    HStack {
-                        Spacer()
-                        VStack {
-                            Spacer()
-                            
-                            Image(uiImage: .templateSel).frame(width: 16, height: 16)
-                                .padding(8)
-                        }
-                    }
-                } else {
-                    Color.red
-                }
-            }).frame(width: itemWidth, height: itemHeight)
+        ForEach((0..&lt;list.count), content: { idx in
+            Text("\(idx)")
+                .frame(width: itemWidth, height: itemHeight)
                 .onTapGesture {
-                    selectedIndex = idx
+                    // 被点击
                 }
         })
     }).padding(.horizontal)
-}
-</string>
+}</string>
 	<key>IDECodeSnippetIdentifier</key>
 	<string>CAE03100-7705-463A-8D56-5E2AC7EA8E78</string>
 	<key>IDECodeSnippetLanguage</key>
@@ -50,6 +36,6 @@
 	<key>IDECodeSnippetUserSnippet</key>
 	<true/>
 	<key>IDECodeSnippetVersion</key>
-	<integer>0</integer>
+	<integer>2</integer>
 </dict>
 </plist>

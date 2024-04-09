@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDECodeSnippetCompletionPrefix</key>
+	<string>SwiftUI_mask</string>
+	<key>IDECodeSnippetCompletionScopes</key>
+	<array>
+		<string>All</string>
+	</array>
+	<key>IDECodeSnippetContents</key>
+	<string>Image(uiImage: image)
+    .resizable()
+    .frame(width: width, height: height)
+    .mask (
+        Image(uiImage: maskImage)
+            .resizable()
+            .scaledToFit()
+            .frame(width: width)
+    )
+    .clipShape(RoundedRectangle(cornerRadius: imageCornerRadius(width)))</string>
+	<key>IDECodeSnippetIdentifier</key>
+	<string>1FA32237-1E35-4E1C-91B2-902BA7ECA224</string>
+	<key>IDECodeSnippetLanguage</key>
+	<string>Xcode.SourceCodeLanguage.Swift</string>
+	<key>IDECodeSnippetSummary</key>
+	<string>SwiftUI_mask</string>
+	<key>IDECodeSnippetTitle</key>
+	<string>SwiftUI_mask</string>
+	<key>IDECodeSnippetUserSnippet</key>
+	<true/>
+	<key>IDECodeSnippetVersion</key>
+	<integer>0</integer>
+</dict>
+</plist>

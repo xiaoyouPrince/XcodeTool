@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDECodeSnippetCompletionPrefix</key>
+	<string>SwiftUI_overlay</string>
+	<key>IDECodeSnippetCompletionScopes</key>
+	<array>
+		<string>All</string>
+	</array>
+	<key>IDECodeSnippetContents</key>
+	<string>Rectangle()
+    .fill(Color(UIColor.black.withAlphaComponent(0.35)))
+    .overlay(
+        RoundedRectangle(cornerRadius: 16)
+            .stroke(Color.black, lineWidth: 2)
+    )</string>
+	<key>IDECodeSnippetIdentifier</key>
+	<string>576DF95A-BE54-494B-9D98-0FBA277ACF9F</string>
+	<key>IDECodeSnippetLanguage</key>
+	<string>Xcode.SourceCodeLanguage.Swift</string>
+	<key>IDECodeSnippetSummary</key>
+	<string>SwiftUI_overlay</string>
+	<key>IDECodeSnippetTitle</key>
+	<string>SwiftUI_overlay</string>
+	<key>IDECodeSnippetUserSnippet</key>
+	<true/>
+	<key>IDECodeSnippetVersion</key>
+	<integer>0</integer>
+</dict>
+</plist>

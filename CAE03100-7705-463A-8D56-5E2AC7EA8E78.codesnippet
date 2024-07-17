@@ -16,7 +16,7 @@ let list = dataArry // 数据源数组 或者其他自定义
 
 ScrollView(.vertical, showsIndicators: false) {
     LazyVGrid(columns: (0..&lt;columns).map({_ in GridItem(.flexible())}), pinnedViews: [], content: {
-        ForEach((0..&lt;list.count), content: { idx in
+        ForEach((0..&lt;list.count), id: \.self, content: { idx in
             Text("\(idx)")
                 .frame(width: itemWidth, height: itemHeight)
                 .onTapGesture {

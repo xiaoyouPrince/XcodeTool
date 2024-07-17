@@ -3,26 +3,22 @@
 <plist version="1.0">
 <dict>
 	<key>IDECodeSnippetCompletionPrefix</key>
-	<string>SwiftUI_overlay</string>
+	<string>SwiftUI_cornerRadius</string>
 	<key>IDECodeSnippetCompletionScopes</key>
 	<array>
 		<string>All</string>
 	</array>
 	<key>IDECodeSnippetContents</key>
-	<string>Rectangle()
-    .fill(Color(UIColor.black.withAlphaComponent(0.35)))
-    .overlay(
-        RoundedRectangle(cornerRadius: 16)
-            .stroke(Color.black, lineWidth: 2)
-    )</string>
+	<string>Color(UIColor.xy_getColor(hex: 0x222222).withAlphaComponent(8))
+                .clipShape(RoundedCorners(cornerRadius: 8, corners: .allCorners))</string>
 	<key>IDECodeSnippetIdentifier</key>
-	<string>576DF95A-BE54-494B-9D98-0FBA277ACF9F</string>
+	<string>77A6CAC1-5F86-40B8-85ED-F22A907AEF3B</string>
 	<key>IDECodeSnippetLanguage</key>
 	<string>Xcode.SourceCodeLanguage.Swift</string>
 	<key>IDECodeSnippetSummary</key>
-	<string>SwiftUI_overlay</string>
+	<string></string>
 	<key>IDECodeSnippetTitle</key>
-	<string>SwiftUI_overlay</string>
+	<string>SwiftUI_cornerRadius</string>
 	<key>IDECodeSnippetUserSnippet</key>
 	<true/>
 	<key>IDECodeSnippetVersion</key>

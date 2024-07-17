@@ -3,26 +3,30 @@
 <plist version="1.0">
 <dict>
 	<key>IDECodeSnippetCompletionPrefix</key>
-	<string>SwiftUI_overlay</string>
+	<string>SwiftUI_gradientColor</string>
 	<key>IDECodeSnippetCompletionScopes</key>
 	<array>
 		<string>All</string>
 	</array>
 	<key>IDECodeSnippetContents</key>
-	<string>Rectangle()
-    .fill(Color(UIColor.black.withAlphaComponent(0.35)))
-    .overlay(
-        RoundedRectangle(cornerRadius: 16)
-            .stroke(Color.black, lineWidth: 2)
+	<string>Text("文字底部渐变色")
+    .padding(.horizontal, 4)
+    .padding(.vertical, 2)
+    .background(
+        LinearGradient(
+            gradient: Gradient(colors: badgeBgColors.map{ Color($0)}),
+            startPoint: .topLeading,
+            endPoint: .bottomTrailing
+        )
     )</string>
 	<key>IDECodeSnippetIdentifier</key>
-	<string>576DF95A-BE54-494B-9D98-0FBA277ACF9F</string>
+	<string>37E26B49-EA6F-4D1F-B457-CEB1B5F55388</string>
 	<key>IDECodeSnippetLanguage</key>
 	<string>Xcode.SourceCodeLanguage.Swift</string>
 	<key>IDECodeSnippetSummary</key>
-	<string>SwiftUI_overlay</string>
+	<string>SwiftUI_gradientColor</string>
 	<key>IDECodeSnippetTitle</key>
-	<string>SwiftUI_overlay</string>
+	<string>SwiftUI_gradientColor</string>
 	<key>IDECodeSnippetUserSnippet</key>
 	<true/>
 	<key>IDECodeSnippetVersion</key>

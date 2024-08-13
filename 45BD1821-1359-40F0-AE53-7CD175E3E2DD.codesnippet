@@ -3,26 +3,27 @@
 <plist version="1.0">
 <dict>
 	<key>IDECodeSnippetCompletionPrefix</key>
-	<string>xy_SwiftUI_overlay</string>
+	<string>xy_make_constraints_swift</string>
 	<key>IDECodeSnippetCompletionScopes</key>
 	<array>
 		<string>All</string>
 	</array>
 	<key>IDECodeSnippetContents</key>
-	<string>Rectangle()
-    .fill(Color(UIColor.black.withAlphaComponent(0.35)))
-    .overlay(
-        RoundedRectangle(cornerRadius: 16)
-            .stroke(Color.black, lineWidth: 2)
-    )</string>
+	<string>topLine.translatesAutoresizingMaskIntoConstraints = false
+NSLayoutConstraint.activate([
+    topLine.leadingAnchor.constraint(equalTo: self.leadingAnchor),
+    topLine.trailingAnchor.constraint(equalTo: self.trailingAnchor),
+    topLine.topAnchor.constraint(equalTo: self.topAnchor),
+    topLine.heightAnchor.constraint(equalToConstant: .line)
+])</string>
 	<key>IDECodeSnippetIdentifier</key>
-	<string>576DF95A-BE54-494B-9D98-0FBA277ACF9F</string>
+	<string>45BD1821-1359-40F0-AE53-7CD175E3E2DD</string>
 	<key>IDECodeSnippetLanguage</key>
 	<string>Xcode.SourceCodeLanguage.Swift</string>
 	<key>IDECodeSnippetSummary</key>
-	<string>SwiftUI_overlay</string>
+	<string>xy_make_constraints_swift</string>
 	<key>IDECodeSnippetTitle</key>
-	<string>SwiftUI_overlay</string>
+	<string>设置约束，NSLayoutConstraint</string>
 	<key>IDECodeSnippetUserSnippet</key>
 	<true/>
 	<key>IDECodeSnippetVersion</key>

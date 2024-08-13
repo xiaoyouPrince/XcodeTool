@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDECodeSnippetCompletionPrefix</key>
+	<string>xy_SwiftUI_pageViewController</string>
+	<key>IDECodeSnippetCompletionScopes</key>
+	<array>
+		<string>All</string>
+	</array>
+	<key>IDECodeSnippetContents</key>
+	<string>
+/*  
+    @objc
+    func btnClick(){
+        let detailVC = UIHostingController(rootView: body)
+        detailVC.modalPresentationStyle = .custom
+        present(detailVC, animated: true)
+    }
+    
+    
+    @ViewBuilder
+    var body: some View {
+        GeometryReader { GeometryProxy in
+            let pages = [
+                WPPreivewViewHome()
+                    .ignoresSafeArea(),
+                WPPreivewViewHome()
+                    .ignoresSafeArea()
+            ]
+            
+            PageViewController(pages: pages)
+        }.ignoresSafeArea()
+    }
+*/
+
+
+struct PageViewController&lt;Page: View&gt;: UIViewControllerRepresentable {
+    var pages: [Page]
+    
+    func makeUIViewController(context: Context) -&gt; UIPageViewController {
+        let pageController = UIPageViewController (
+            transitionStyle: .scroll,
+            navigationOrientation: .horizontal
+        )
+        pageController.dataSource = context.coordinator
+        pageController.delegate = context.coordinator
+        return pageController
+    }
+    
+    func updateUIViewController(_ pageController: UIPageViewController, context: Context) {
+        pageController.setViewControllers(
+            [context.coordinator.controllers[0]],
+            direction: .forward,
+            animated: true)
+    }
+    
+    typealias UIViewControllerType = UIPageViewController
+    
+    func makeCoordinator() -&gt; Coordinator {
+        Coordinator(parent: self)
+    }
+    
+    
+    class Coordinator: NSObject, UIPageViewControllerDataSource, UIPageViewControllerDelegate, UIScrollViewDelegate {
+        
+        var parent: PageViewController
+        var controllers: [UIViewController] = []
+        
+        init(parent: PageViewController) {
+            self.parent = parent
+            controllers = parent.pages.map {
+                UIHostingController(rootView: $0)
+            }
+        }
+        
+        
+        func pageViewController(
+            _ pageViewController: UIPageViewController,
+            viewControllerBefore viewController: UIViewController) -&gt; UIViewController?
+        {
+            guard let index = controllers.firstIndex(of: viewController) else {
+                return nil
+            }
+            if index == 0 {
+                return nil//controllers.last
+            }
+            return controllers[index - 1]
+        }
+        
+        
+        func pageViewController(
+            _ pageViewController: UIPageViewController,
+            viewControllerAfter viewController: UIViewController) -&gt; UIViewController?
+        {
+            guard let index = controllers.firstIndex(of: viewController) else {
+                return nil
+            }
+            if index + 1 == controllers.count {
+                return nil//controllers.first
+            }
+            return controllers[index + 1]
+        }
+        
+        func pageViewController(_ pageViewController: UIPageViewController, willTransitionTo pendingViewControllers: [UIViewController]) {
+            if let scrollView = pageViewController.view.subviews.first as? UIScrollView {
+                scrollView.delegate = self
+                scrollView.bounces = false
+            }
+        }
+        
+        func pageViewController(
+            _ pageViewController: UIPageViewController,
+            didFinishAnimating finished: Bool,
+            previousViewControllers: [UIViewController],
+            transitionCompleted completed: Bool) {
+            if completed,
+               let visibleViewController = pageViewController.viewControllers?.first,
+               let index = controllers.firstIndex(of: visibleViewController) {
+                //parent.currentPage = index
+                
+                print("currentPage = \(index)")
+                
+                print(pageViewController.view)
+                print(pageViewController.view.subviews)
+            }
+        }
+        
+        func scrollViewDidScroll(_ scrollView: UIScrollView) {
+
+            var ratio: CGFloat = (scrollView.contentOffset.x - scrollView.bounds.width) / scrollView.bounds.width
+            print("滚动百分比：", ratio)
+        }
+    }
+}</string>
+	<key>IDECodeSnippetIdentifier</key>
+	<string>12738D91-3BEE-41E1-9EBF-409BD104C4B3</string>
+	<key>IDECodeSnippetLanguage</key>
+	<string>Xcode.SourceCodeLanguage.Swift</string>
+	<key>IDECodeSnippetSummary</key>
+	<string>可自定义分页组件</string>
+	<key>IDECodeSnippetTitle</key>
+	<string>SwiftUI封装pageViewController</string>
+	<key>IDECodeSnippetUserSnippet</key>
+	<true/>
+	<key>IDECodeSnippetVersion</key>
+	<integer>0</integer>
+</dict>
+</plist>

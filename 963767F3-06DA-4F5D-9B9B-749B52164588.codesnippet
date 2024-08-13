@@ -3,26 +3,36 @@
 <plist version="1.0">
 <dict>
 	<key>IDECodeSnippetCompletionPrefix</key>
-	<string>xy_SwiftUI_overlay</string>
+	<string>xy_dispatchGroup_swift</string>
 	<key>IDECodeSnippetCompletionScopes</key>
 	<array>
 		<string>All</string>
 	</array>
 	<key>IDECodeSnippetContents</key>
-	<string>Rectangle()
-    .fill(Color(UIColor.black.withAlphaComponent(0.35)))
-    .overlay(
-        RoundedRectangle(cornerRadius: 16)
-            .stroke(Color.black, lineWidth: 2)
-    )</string>
+	<string>let dispatchGroup: DispatchGroup = .init()
+let dispatchQueue = DispatchQueue(label: "dispatch_queue")
+
+for index in 0 ..&lt; 10 {
+    dispatchGroup.enter()
+    dispatchQueue.async {
+        
+        // do smt, while done, call 'dispatchGroup.leave()'
+        
+        dispatchGroup.leave()
+    }
+}
+
+dispatchGroup.notify(queue: DispatchQueue.main) {
+    // do smt here while all the async things done
+}</string>
 	<key>IDECodeSnippetIdentifier</key>
-	<string>576DF95A-BE54-494B-9D98-0FBA277ACF9F</string>
+	<string>963767F3-06DA-4F5D-9B9B-749B52164588</string>
 	<key>IDECodeSnippetLanguage</key>
 	<string>Xcode.SourceCodeLanguage.Swift</string>
 	<key>IDECodeSnippetSummary</key>
-	<string>SwiftUI_overlay</string>
+	<string>xy_dispatchGroup_swift</string>
 	<key>IDECodeSnippetTitle</key>
-	<string>SwiftUI_overlay</string>
+	<string>xy_dispatchGroup_swift</string>
 	<key>IDECodeSnippetUserSnippet</key>
 	<true/>
 	<key>IDECodeSnippetVersion</key>

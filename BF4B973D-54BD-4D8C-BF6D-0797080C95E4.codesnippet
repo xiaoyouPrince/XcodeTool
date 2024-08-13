@@ -22,7 +22,7 @@
 	<key>IDECodeSnippetSummary</key>
 	<string>给 UIView 添加约束，依赖 Snapkit</string>
 	<key>IDECodeSnippetTitle</key>
-	<string>设置约束</string>
+	<string>设置约束, snapkit</string>
 	<key>IDECodeSnippetUserSnippet</key>
 	<true/>
 	<key>IDECodeSnippetVersion</key>

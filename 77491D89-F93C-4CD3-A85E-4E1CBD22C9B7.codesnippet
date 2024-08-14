@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDECodeSnippetCompletionPrefix</key>
+	<string>xy_combine_subscriber</string>
+	<key>IDECodeSnippetCompletionScopes</key>
+	<array>
+		<string>All</string>
+	</array>
+	<key>IDECodeSnippetContents</key>
+	<string>/// 自定义 IntSubscriber, 遵守 Subscriber 协议
+final class IntSubscriber: Subscriber {
+    
+    // 指定接受数据类型
+    typealias Input = Int
+    typealias Failure = Never
+    
+    // 建立订阅关系, 接收到 subscription 对象
+    func receive(subscription: any Subscription) {
+        // 建立关系的时候直接请求数据, 指定最大次数 5
+        subscription.request(.max(5))
+        
+        print("建立订阅线程 - \(Thread.current.isMainThread ? "main" : "not main")")
+    }
+    
+    func receive(_ input: Int) -&gt; Subscribers.Demand {
+        // 接收到数据时候,可以做一些操作, 要返回仍要接收数据的策略
+        // 在最初的基础上再次多请求 0次(此值会对原始剩余次数累加)
+        print("receive - \(input)")
+        print("接收所在线程 - \(Thread.current.isMainThread ? "main" : "not main")")
+        return .max(0)
+    }
+    
+    func receive(completion: Subscribers.Completion&lt;Failure&gt;) {
+        // 接收数据完成
+        print("接收数据结束")
+        print("完成所在线程 - \(Thread.current.isMainThread ? "main" : "not main")")
+    }
+    
+}
+
+let subscriber = IntSubscriber()
+let publisher = (0...8).publisher
+publisher
+    .subscribe(on: DispatchQueue.global()) // 指定建立联系所在的线程
+        .subscribe(subscriber)</string>
+	<key>IDECodeSnippetIdentifier</key>
+	<string>77491D89-F93C-4CD3-A85E-4E1CBD22C9B7</string>
+	<key>IDECodeSnippetLanguage</key>
+	<string>Xcode.SourceCodeLanguage.Swift</string>
+	<key>IDECodeSnippetSummary</key>
+	<string>xy_combine_subscriber</string>
+	<key>IDECodeSnippetTitle</key>
+	<string>自定义订阅者</string>
+	<key>IDECodeSnippetUserSnippet</key>
+	<true/>
+	<key>IDECodeSnippetVersion</key>
+	<integer>0</integer>
+</dict>
+</plist>

@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDECodeSnippetCompletionPrefix</key>
+	<string>xy_combine_custom_publisher_Subject</string>
+	<key>IDECodeSnippetCompletionScopes</key>
+	<array>
+		<string>All</string>
+	</array>
+	<key>IDECodeSnippetContents</key>
+	<string>class MySubject&lt;Output, Failure : Error&gt; : Combine.Subject {
+    var value: Output {
+        didSet {
+            // 如果没有结束的话，每个订阅都要通知。
+            guard completion == nil else { return }
+            subscriptions.forEach { $0.receiveForSubject(value) }
+        }
+    }
+    private var completion: Subscribers.Completion&lt;Failure&gt;? {
+        didSet {
+            // 控制不发生二次完了通知。
+            guard oldValue == nil, let completion = completion else { return }
+            subscriptions.forEach { $0.receiveForSubject(completion: completion) }
+        }
+    }
+    
+    // 订阅数组
+    private var subscriptions: [MySubjectSubscription&lt;Output, Failure&gt;] = []
+
+    init(_ value: Output) {
+        self.value = value
+    }
+
+    // Publisher ；产生订阅。
+    func receive&lt;S&gt;(subscriber: S) where S : Combine.Subscriber, Failure == S.Failure, Output == S.Input {
+        
+        let subscription = MySubjectSubscription(subscriber: subscriber, cancel: cancel(subscription:))
+        subscriber.receive(subscription: subscription)
+        
+        subscriptions.append(subscription)
+
+        if let completion = completion {
+            // 如果结束，立即通知。
+            subscription.receiveForSubject(completion: completion)
+        } else {
+            // 发送通知，最后一次的 当前值。
+            subscription.receiveForSubject(value)
+        }
+    }
+
+    // Subject
+    func send(_ value: Output) {
+        guard completion == nil else { return }
+        self.value = value
+    }
+    
+    func send(completion: Subscribers.Completion&lt;Failure&gt;) {
+        self.completion = completion
+    }
+    
+    /// This call provides the ``Subject`` an opportunity to establish demand for any new upstream subscriptions.
+    /// 被CombineFW使用。
+    func send(subscription: Combine.Subscription) {
+        subscription.request(.unlimited)
+    }
+    
+    // for Subscription
+    private func cancel(subscription: MySubjectSubscription&lt;Output, Failure&gt;) {
+        guard let index = subscriptions.firstIndex(of: subscription) else { return }
+        subscriptions.remove(at: index)
+    }
+}
+
+
+class MySubjectSubscription&lt;Output, Failure : Error&gt; : Combine.Subscription, Equatable {
+    
+    private var demand: Subscribers.Demand = .none
+    private var subscriber: AnySubscriber&lt;Output, Failure&gt;
+    private var cancelSubscription: (MySubjectSubscription&lt;Output, Failure&gt;) -&gt; Void
+
+    init&lt;S&gt;(subscriber: S, cancel: @escaping (MySubjectSubscription&lt;Output, Failure&gt;) -&gt; Void) where S : Combine.Subscriber, Output == S.Input, Failure == S.Failure {
+        self.subscriber = .init(subscriber)
+        self.cancelSubscription = cancel
+    }
+
+    // Subscription
+    func request(_ demand: Subscribers.Demand) {
+        // 每次发生订阅的时候，会执行一次。
+        self.demand = demand
+    }
+
+    // Cancellable, 从 订阅List删除本身。 初始化的时候，将使用MySubject#cancel 进行实现。
+    func cancel() {
+        cancelSubscription(self)
+    }
+
+    // for Subscriber, 在 MySubject 中调用。
+    func receiveForSubject(_ value: Output) {
+        guard demand != .none else { return }
+        demand -= 1
+        demand += subscriber.receive(value)
+    }
+    // for Subscriber, 在 MySubject 中调用。
+    func receiveForSubject(completion: Subscribers.Completion&lt;Failure&gt;) {
+        subscriber.receive(completion: completion)
+    }
+
+    static func == (lhs: MySubjectSubscription&lt;Output, Failure&gt;, rhs: MySubjectSubscription&lt;Output, Failure&gt;) -&gt; Bool {
+        lhs.combineIdentifier == rhs.combineIdentifier
+    }
+}
+
+
+/*
+
+//let publisher = Publishers.Sequence&lt;[Int], Error&gt;(sequence: [0, 1, 2])
+let ms: MySubject&lt;Int, Error&gt; = .init(11)
+//
+//publisher.subscribe(ms)
+
+ms.sink(receiveCompletion: { completion in
+    /// Subscribers.Completion&lt;Self.Failure&gt;
+    switch(completion) {
+        case .finished :
+            print("receiveCompletion (sink1) finished.")
+        case .failure(let error) :
+        print("receiveCompletion error (sink1) : \(error)")
+    }
+}, receiveValue: { value in
+    print("receiveValue (sink1) : \(value)")
+})
+
+ms.sink(receiveCompletion: { completion in
+    /// Subscribers.Completion&lt;Self.Failure&gt;
+    switch(completion) {
+        case .finished :
+            print("     receiveCompletion (sink2) finished.")
+        case .failure(let error) :
+        print("     receiveCompletion error (sink2) : \(error)")
+    }
+}, receiveValue: { value in
+    print("     receiveValue (sink2) : \(value)")
+})
+
+
+ms.send(1)
+ms.send(2)
+ms.send(3)
+ms.send(completion: .finished)
+ms.sink(receiveCompletion: { completion in
+    /// Subscribers.Completion&lt;Self.Failure&gt;
+    switch(completion) {
+        case .finished :
+            print("     receiveCompletion (sink3) finished.")
+        case .failure(let error) :
+        print("     receiveCompletion error (sink3) : \(error)")
+    }
+}, receiveValue: { value in
+    print("     receiveValue (sink3) : \(value)")
+})
+ms.send(2)
+ms.send(3)
+
+*/</string>
+	<key>IDECodeSnippetIdentifier</key>
+	<string>AAD7DE95-FCC6-4427-9581-05CF71FD3202</string>
+	<key>IDECodeSnippetLanguage</key>
+	<string>Xcode.SourceCodeLanguage.Swift</string>
+	<key>IDECodeSnippetSummary</key>
+	<string>自定义Subject类型的发布者, 可以自行send() 消息</string>
+	<key>IDECodeSnippetTitle</key>
+	<string>xy_combine_custom_publisher_Subject</string>
+	<key>IDECodeSnippetUserSnippet</key>
+	<true/>
+	<key>IDECodeSnippetVersion</key>
+	<integer>0</integer>
+</dict>
+</plist>

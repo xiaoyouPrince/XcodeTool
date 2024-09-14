@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDECodeSnippetCompletionPrefix</key>
+	<string>xy_combine_custom_publisher_Future</string>
+	<key>IDECodeSnippetCompletionScopes</key>
+	<array>
+		<string>All</string>
+	</array>
+	<key>IDECodeSnippetContents</key>
+	<string>/// 配置信息
+struct DispatchTimerConfigration {
+    /// 执行的上下文 queue
+    let queue: DispatchQueue
+    /// 时间间隔, 多久发送一次
+    let interval: DispatchTimeInterval
+    /// 最大延迟时间
+    let leeway: DispatchTimeInterval
+    /// 请求次数
+    let times: Subscribers.Demand
+}
+
+/// 自定义定义订阅对象
+class DispatchTimerSubscription&lt;S: Subscriber&gt; : Combine.Subscription where S.Input == DispatchTime {
+    
+    let configration: DispatchTimerConfigration
+    /// 外部配置的发送次数
+    var totalTimes: Subscribers.Demand
+    /// 动态调节的次数
+    var requested: Subscribers.Demand = .none
+    /// 发布时间动作的动作
+    var source: DispatchSourceTimer?
+    /// 持有自己的订阅者
+    var subscriber: S?
+    
+    init(subscriber: S, configration: DispatchTimerConfigration) {
+        self.subscriber = subscriber
+        self.configration = configration
+        self.totalTimes = configration.times
+    }
+    
+    // MARK: - Subscription 协议方法
+    func request(_ demand: Subscribers.Demand) {
+        print("request")
+        
+        guard self.totalTimes &gt; .none else {
+            subscriber?.receive(completion: .finished)
+            return
+        }
+        
+        self.requested += demand
+        
+        if source == nil, requested &gt; .none {
+            let source = DispatchSource.makeTimerSource(queue: configration.queue)
+            source.schedule(deadline: .now() + configration.interval, repeating: configration.interval, leeway: configration.leeway)
+            
+            print("thread: \(Thread.isMainThread ? "1" :"0") ")
+            print(Date().timeIntervalSince1970)
+            source.setEventHandler(qos: .userInteractive) {[weak self] in
+                guard let self = self else {
+                    print("self == nil, return")
+                    return
+                }
+                
+                print("thread: \(Thread.isMainThread ? "1" :"0") ")
+                print(Date().timeIntervalSince1970)
+                
+                // 最后一次
+                if self.requested == .max(0) {
+                    subscriber?.receive(completion: .finished)
+                    return
+                }
+                
+                // 发送数据并动态调整 demand
+                self.requested -= .max(1)
+                if let demand = self.subscriber?.receive(.now()) {
+                    self.requested += demand
+                }
+                
+                //结束点
+                self.totalTimes -= .max(1)
+                if self.totalTimes == .none || self.totalTimes == .max(0) {
+                    subscriber?.receive(completion: .finished)
+                }
+            }
+            
+            self.source = source
+            source.activate()
+        }
+    }
+    
+    func cancel() {
+        print("cancel")
+        source = nil
+        subscriber = nil
+    }
+    
+    
+    static func == (lhs: DispatchTimerSubscription, rhs: DispatchTimerSubscription) -&gt; Bool {
+        lhs.combineIdentifier == rhs.combineIdentifier
+    }
+}
+
+
+/// 创建customDispatchTimer
+/// 本质是像系统 Publishers.Map 这样可以调用自己的 pubslisher
+extension Publishers {
+    
+    struct CustomDispatchTimer: Publisher {
+        // 指定类型
+        typealias Output = DispatchTime
+        typealias Failure = Never
+        
+        let configration: DispatchTimerConfigration
+        
+        init(configration: DispatchTimerConfigration) {
+            self.configration = configration
+        }
+        
+        // MARK: - Publisher 协议方法, 创建 subscription 并让 subcriber 持有 subscription
+        func receive&lt;S&gt;(subscriber: S) where S : Subscriber, Never == S.Failure, DispatchTime == S.Input {
+            let subscription = DispatchTimerSubscription(subscriber: subscriber, configration: configration)
+            subscriber.receive(subscription: subscription)
+        }
+    }
+    
+    /// 声明一个便利方法,快速创建 coustomDispatchTimer publisher
+    static func cusmtomTimer(queue: DispatchQueue,
+                             inerval: DispatchTimeInterval,
+                             leeway: DispatchTimeInterval,
+                             times: Subscribers.Demand = .unlimited
+    ) -&gt; CustomDispatchTimer {
+        .init(configration: DispatchTimerConfigration(queue: queue, interval: inerval, leeway: leeway, times: times))
+    }
+}
+
+var store: Set&lt;AnyCancellable&gt; = []
+func testCustomTimer() {
+    
+    let publisher = Publishers.cusmtomTimer(queue: .main, inerval: .seconds(1), leeway: .nanoseconds(0), times: .max(4))
+    publisher.sink { complete in
+        switch complete {
+        case .finished:
+            print("finished")
+        case .failure(_):
+            print("failuer")
+        }
+    } receiveValue: { value in
+        print("value = \(value)")
+    }.store(in: &amp;store)
+    
+    // 这里直接 cancel 就取消了, 因为订阅行为内部创建订阅本身, 订阅的事件发送是放到指定queue中的,这个操作本身是异步
+    // 如果这里,也放到异步取消,则可以收到订阅的信息
+    //store.first?.cancel()
+}
+
+</string>
+	<key>IDECodeSnippetIdentifier</key>
+	<string>E7E30111-73B9-40AA-808E-8EBA8DD70EE3</string>
+	<key>IDECodeSnippetLanguage</key>
+	<string>Xcode.SourceCodeLanguage.Swift</string>
+	<key>IDECodeSnippetSummary</key>
+	<string>创建类似 Future 自定义发布者, 不能自己随意 send() 数据</string>
+	<key>IDECodeSnippetTitle</key>
+	<string>xy_combine_custom_publisher_Future</string>
+	<key>IDECodeSnippetUserSnippet</key>
+	<true/>
+	<key>IDECodeSnippetVersion</key>
+	<integer>0</integer>
+</dict>
+</plist>

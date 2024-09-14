@@ -50,12 +50,12 @@ publisher
 	<key>IDECodeSnippetLanguage</key>
 	<string>Xcode.SourceCodeLanguage.Swift</string>
 	<key>IDECodeSnippetSummary</key>
-	<string>xy_combine_subscriber</string>
+	<string>自定义订阅者, 实现 Subscriber 协议, 在协议方法中处理接收数据等逻辑</string>
 	<key>IDECodeSnippetTitle</key>
-	<string>自定义订阅者</string>
+	<string>xy_combine_subscriber</string>
 	<key>IDECodeSnippetUserSnippet</key>
 	<true/>
 	<key>IDECodeSnippetVersion</key>
-	<integer>0</integer>
+	<integer>2</integer>
 </dict>
 </plist>

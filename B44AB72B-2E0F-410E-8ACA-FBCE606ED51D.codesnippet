@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDECodeSnippetCompletionPrefix</key>
+	<string>xy_combine_network</string>
+	<key>IDECodeSnippetCompletionScopes</key>
+	<array>
+		<string>All</string>
+	</array>
+	<key>IDECodeSnippetContents</key>
+	<string>func getJobList() {
+        print("search all jobs")
+        let req = GetJobListReq()
+        let allJobPublisher = service.getJobList(req: req)
+        
+        allJobPublisher.map({
+            reponse in
+            return reponse.body.jobInfos.count
+        })
+        .replaceError(with: 0)
+        .assign(to: &amp;self.jobDataModel.$jobCount)
+        
+        allJobPublisher.sink(receiveCompletion: { (completion) in
+                    switch completion {
+                    case .failure(let error):
+                        print("获取工作一览 error \(error.localizedDescription)")
+                    case .finished:
+                        print("获取工作一览 finished")
+                    }
+        }, receiveValue: { (response) in
+            if response.header.resultCd == "OK" {
+                let jobList = response.body.jobInfos
+                var jobInfos = [JobInfoDataModel]()
+                for job in jobList {
+                    let model = JobInfoDataModel(jobId: job.jobId,
+                                                 jobName: job.jobName,
+                                                 salary: job.salary,
+                                                 companyName: job.companyName,
+                                                 newFlag: job.newFlag)
+                    jobInfos.append(model)
+                }
+                jobDataModel.jobInfos = jobInfos
+            }
+
+        }) .store(in: &amp;self.subscriptions)
+        
+        allJobPublisher
+            .tryMap { (res) -&gt; GetJobListRes in
+                if res.header.resultCd != "OK" {
+                    throw NetworkError.badRequest(code: 501, error: "requestError")
+                } else {
+                    return res
+                }
+            }
+            .flatMap {
+                $0.body.jobInfos.publisher
+            }
+            .filter {
+                return $0.newFlag == "1"
+            }
+            .sink(receiveCompletion: { (completion) in
+                switch completion {
+                case .failure(let error):
+                    print("获取最新工作一览 error \(error.localizedDescription)")
+                case .finished:
+                    print("获取最新工作一览 finished")
+                }
+            }, receiveValue: { (jobInfo) in
+                let model = JobInfoDataModel(jobId: jobInfo.jobId,
+                                             jobName: jobInfo.jobName,
+                                             salary: jobInfo.salary,
+                                             companyName: jobInfo.companyName,
+                                             newFlag: jobInfo.newFlag)
+                jobDataModel.newJobInfos.append(model)
+            })
+             .store(in: &amp;self.subscriptions)
+    }
+    
+    func getJobDetails(jobId : String) {
+        print("JobDetail Search  jobId: \(jobId)")
+        var req = GetJobDetailsReq()
+        req.body = GetJobDetailsReqBody(jobId: jobId)
+        service.getJobDetails(req: req)
+            .sink { (completion) in
+                switch completion {
+                case .failure(let error):
+                    print("获取工作详细 error \(error.localizedDescription)")
+                case .finished:
+                    print("获取工作详细 finished")
+                }
+            } receiveValue: { (response) in
+                print("ResponseBody:\(response)")
+                if response.header.resultCd == "OK" {
+                    let jobDetail: GetJobDetailsResBody = response.body
+                    jobDetailDataModel.jobId = jobDetail.jobId
+                    jobDetailDataModel.jobName = jobDetail.jobName
+                    jobDetailDataModel.salary = jobDetail.salary
+                    jobDetailDataModel.companyName = jobDetail.companyName
+                    jobDetailDataModel.newFlag = jobDetail.newFlag
+                    jobDetailDataModel.dateFrom = jobDetail.dateFrom
+                    jobDetailDataModel.dateTo = jobDetail.dateTo
+                    jobDetailDataModel.detail = jobDetail.detail
+                    self.seeDetailFlg = true
+                }
+            }
+            .store(in: &amp;self.subscriptions)
+    }</string>
+	<key>IDECodeSnippetIdentifier</key>
+	<string>B44AB72B-2E0F-410E-8ACA-FBCE606ED51D</string>
+	<key>IDECodeSnippetLanguage</key>
+	<string>Xcode.SourceCodeLanguage.Swift</string>
+	<key>IDECodeSnippetSummary</key>
+	<string>xy_combine_network</string>
+	<key>IDECodeSnippetTitle</key>
+	<string>网络</string>
+	<key>IDECodeSnippetUserSnippet</key>
+	<true/>
+	<key>IDECodeSnippetVersion</key>
+	<integer>0</integer>
+</dict>
+</plist>

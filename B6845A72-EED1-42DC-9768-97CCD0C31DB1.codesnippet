@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDECodeSnippetCompletionPrefix</key>
+	<string>xy_create_adProvider</string>
+	<key>IDECodeSnippetCompletionScopes</key>
+	<array>
+		<string>All</string>
+	</array>
+	<key>IDECodeSnippetContents</key>
+	<string>import Foundation
+import UIKit
+import YYUIKit
+
+//类型名称
+class &lt;#ADProviderGDT_Splash#&gt;: NSObject {
+    private var currentAd: &lt;#GDTSplashAd#&gt;! // 特定广告类型
+    private var adTypeModel: ADConfigADTypeModel!
+    private var loadSuccessCallback: ADVoidCallBack?
+    private var loadFailureCallback: ADStringCallBack?
+    private var showErrorCallback: ADBoolCallBack?
+    private var isLoading: Bool = false
+}
+
+extension &lt;#ADProviderGDT_Splash#&gt;: ADSubProviderProtocol {
+    func loadAd(with adTypeModel: ADConfigADTypeModel?, success: ADVoidCallBack?, failure: ADStringCallBack?, showError: ADBoolCallBack?) {
+        guard let adTypeModel = adTypeModel else {
+            AdUtils.log("要加载的广告源为nil, 上游传参数异常")
+            return
+        }
+        if isLoading {
+            AdUtils.log("正在加载广告之中, 这里可能是上游操作过快导致, 直接报错, 让上游处理")
+            failure?("正在加载中")
+            return
+        }
+        self.loadSuccessCallback = success
+        self.loadFailureCallback = failure
+        self.showErrorCallback = showError
+        
+        self.adTypeModel = adTypeModel
+        if currentAd == nil {
+            // 创建 currentAd 对象
+            currentAd = &lt;#GDTSplashAd(placementId: adTypeModel.adId ?? "")#&gt;
+        }
+        
+        currentAd.delegate = self
+        // 设置基本配置
+        // 开始加载广告, 这里是一些基本配置, 具体看对应平台文档
+        splashAd.loadFullScreenAd()
+        isLoading = true
+    }
+}
+
+// 遵守特定广告代理协议
+extension &lt;#ADProviderGDT_Splash#&gt;: &lt;#GDTSplashAdDelegate#&gt; {
+    
+    
+}
+
+/*
+    // 下面是几个核心步骤的操作示例, 比如加载成功/失败/曝光/点击/关闭
+ 
+    func splashAdDidLoad(_ splashAd: GDTSplashAd!) {
+        splashAd.showFullScreenAd(in: UIApplication.getKeyWindow(), withLogoImage: nil, skip: nil)
+        adTypeModel.epcm = splashAd.eCPM()
+        ADManager.statisticLog(action: .loadSuccess, adModel: adTypeModel)
+        adTypeModel.epcm = nil
+        loadSuccessCallback?()
+        isLoading = false
+    }
+    
+    func splashAdFail(toPresent splashAd: GDTSplashAd!, withError error: (any Error)!) {
+        ADManager.statisticLog(action: .loadFail(error), adModel: adTypeModel)
+        loadFailureCallback?(error.localizedDescription)
+        isLoading = false
+    }
+    
+    func splashAdExposured(_ splashAd: GDTSplashAd!) {
+        ADManager.statisticLog(action: .displaySuccess, adModel: adTypeModel)
+    }
+    
+    func splashAdClicked(_ splashAd: GDTSplashAd!) {
+        ADManager.statisticLog(action: .click, adModel: adTypeModel)
+    }
+    
+    func splashAdClosed(_ splashAd: GDTSplashAd!) {
+        ADManager.statisticLog(action: .close, adModel: adTypeModel)
+    }
+}
+*/</string>
+	<key>IDECodeSnippetIdentifier</key>
+	<string>B6845A72-EED1-42DC-9768-97CCD0C31DB1</string>
+	<key>IDECodeSnippetLanguage</key>
+	<string>Xcode.SourceCodeLanguage.Swift</string>
+	<key>IDECodeSnippetSummary</key>
+	<string>xy_create_adProvider</string>
+	<key>IDECodeSnippetTitle</key>
+	<string>xy_create_adProvider</string>
+	<key>IDECodeSnippetUserSnippet</key>
+	<true/>
+	<key>IDECodeSnippetVersion</key>
+	<integer>0</integer>
+</dict>
+</plist>

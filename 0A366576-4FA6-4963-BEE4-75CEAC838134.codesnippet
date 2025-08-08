@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDECodeSnippetCompletionPrefix</key>
+	<string>xy_ad_async_ad</string>
+	<key>IDECodeSnippetCompletionScopes</key>
+	<array>
+		<string>All</string>
+	</array>
+	<key>IDECodeSnippetContents</key>
+	<string>
+
+class &lt;#ADProviderGroMore_RewardVideo#&gt;: NSObject {
+    private var currentAd: &lt;#广告类型#&gt;!
+    private var adTypeModel: ADConfigADTypeModel!
+}
+
+extension &lt;#ADProviderGroMore_RewardVideo#&gt;: ADSubProviderProtocol { }
+extension &lt;#ADProviderGroMore_RewardVideo#&gt; {
+    // 这里是新增的要支持的函数,
+    
+    func loadAd(with adTypeModel: ADConfigADTypeModel?) async -&gt; ADResult {
+        self.adTypeModel = adTypeModel
+        guard let adTypeModel = adTypeModel else { return .failure(.asyncLoadError(msg: "请求错误,广告数据为空 \(#function)-\(#line)")) }
+        
+#warning("这行代码是在激励视频广告场景下使用的 --- 需要注意, 加载成功/失败,都要有对应的回调")
+        let isLoading = true
+        ADManager.shared.isLoadingRewardVideoAD(isLoading: isLoading, isFailed: false)
+        
+        return await withCheckedContinuation { continuation in
+            
+            /*  ---- 下面是特定类型广告代码, 按需实现
+             let slot = BUAdSlot()
+             slot.id = adTypeModel.adId ?? ""
+             slot.mediation.mutedIfCan = true
+             
+             let model = BURewardedVideoModel()
+             currentAd = BUNativeExpressRewardedVideoAd(slot: slot, rewardedVideoModel: model)
+             
+             currentAd.delegate = self
+             // self.rewardVideoAd.rewardPlayAgainInteractionDelegate = self
+             // 聚合纬度首次预缓存, 两个参数是从旧 OC 代码复制过来的
+             BUAdSDKManager.mediation.preloadAds(withInfos: [self.currentAd as Any], andInterval: 2, andConcurrent: 1)
+             currentAd.loadData()
+             
+             */
+            
+            // Store the continuation in a property to use in delegate callbacks
+            let continuationWrapper = ContinuationWrapper(continuation: continuation)
+            // Store the wrapper to ensure it persists until the delegate callback
+            objc_setAssociatedObject(currentAd as Any, &amp;AssociatedKeys.continuation, continuationWrapper, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
+        }
+    }
+    
+    /// 添加到缓存池中, 由于并发竞价规则, 不能再直接展示
+    /// v2.40
+    func addToAdPool() async {
+        // 需要本地竞价 --- 放到临时缓存池, 本地竞价完毕之后, 将竞价失败的放到正式缓存池
+        if let adTypeModel = adTypeModel, let currentAd = currentAd {
+            await ADCachePool.shared.cacheAd(forAdTypeModel: adTypeModel, adObject: .init(wrapperAd: currentAd))
+        }
+    }
+    
+    /// 添加到缓存池中, 由于并发竞价规则, 不能再直接展示 - 此函数应该是类似列表自渲染类型一次返回多个广告使用, 和前面的按照需要使用
+    /// v2.40
+    func addToAdPool(withAds: [ADCacheADProtocol]) async {
+
+        // 需要本地竞价 --- 放到临时缓存池, 本地竞价完毕之后, 将竞价失败的放到正式缓存池
+        if let adTypeModel = adTypeModel {
+            for ad in withAds {
+                await ADCachePool.shared.cacheAd(forAdTypeModel: adTypeModel, adObject: .init(wrapperAd: ad))
+            }
+        }
+    }
+}
+
+extension &lt;#ADProviderGroMore_RewardVideo#&gt; {
+    /// 这里是成功状态重启中断点
+    func resumeSuccess() {
+        // Resume the async continuation with success
+        if let continuationWrapper = objc_getAssociatedObject(currentAd as Any, &amp;AssociatedKeys.continuation) as? ContinuationWrapper {
+            continuationWrapper.continuation.resume(returning: .success(.shared))
+            objc_setAssociatedObject(currentAd as Any, &amp;AssociatedKeys.continuation, nil, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
+        }
+    }
+    
+    /// 这里是失败状态重启中断点
+    /// - Parameter errorMsg: 错误说明
+    func resumeError(msg: String) {
+        // Resume the async continuation with success
+        if let continuationWrapper = objc_getAssociatedObject(currentAd as Any, &amp;AssociatedKeys.continuation) as? ContinuationWrapper {
+            continuationWrapper.continuation.resume(returning: .success(.shared))
+            objc_setAssociatedObject(currentAd as Any, &amp;AssociatedKeys.continuation, nil, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
+        }
+    }
+}
+
+// Helper struct to hold the continuation
+private struct ContinuationWrapper {
+    let continuation: CheckedContinuation&lt;ADResult, Never&gt;
+}
+
+// Associated object key for storing continuation
+private struct AssociatedKeys {
+    static var continuation: Void?
+}
+
+// MARK: - 广告支持缓存池协议
+extension &lt;#BUNativeExpressRewardedVideoAd#&gt;: ADCacheADProtocol {
+    
+    var ecpmDoubleValue: Double {
+        let info = mediation?.getShowEcpmInfo()
+        let ecpmDouble = (info?.ecpm ?? "0").doubleValue
+        return ecpmDouble
+    }
+    
+    func showAD() {
+        if let rootVC = /*UIApplication.shared.getKeyWindow()?.rootViewController*/ UIViewController.currentVisibleVC {
+            self.show(fromRootViewController: rootVC)
+        } else {
+            AdUtils.log("插屏要求展示在rootVC上，即盖住整个屏幕，理论不会走到这个分支，就当作一个注释吧")
+        }
+    }
+}
+
+#warning("后面就是对应的代理部分了, --- 按需实现")
+/*
+ 代理部分需要注意:
+ ======== 加载成功 ========
+     Task {
+     await addToAdPool()
+     // Resume the async continuation with sucess
+     self.resumeSuccess()
+     }
+ 
+     如果是激励视频
+     let isLoading = false
+     ADManager.shared.isLoadingRewardVideoAD(isLoading: isLoading, isFailed: false)
+ 
+ ======== 加载失败 ========
+     // Resume the async continuation with failure
+     resumeError(msg: error.localizedDescription)
+     
+     如果是激励视频
+     let isLoading = false
+     ADManager.shared.isLoadingRewardVideoAD(isLoading: isLoading, isFailed: true)
+ 
+ ======== 关闭广告 ======== 关闭之前赋值自己的临时subP,帮助后续关闭
+     adTypeModel.tempSubAdProvider = self
+     ADManager.statisticLog(action: .close, adModel: adTypeModel)
+ */
+
+
+// MARK: - 遵守特定广告代理协议
+----- 下面跟着对应的广告代理协议</string>
+	<key>IDECodeSnippetIdentifier</key>
+	<string>0A366576-4FA6-4963-BEE4-75CEAC838134</string>
+	<key>IDECodeSnippetLanguage</key>
+	<string>Xcode.SourceCodeLanguage.Swift</string>
+	<key>IDECodeSnippetSummary</key>
+	<string>xy_ad_async_ad 广告的快速模版</string>
+	<key>IDECodeSnippetTitle</key>
+	<string>xy_ad_async_ad</string>
+	<key>IDECodeSnippetUserSnippet</key>
+	<true/>
+	<key>IDECodeSnippetVersion</key>
+	<integer>2</integer>
+</dict>
+</plist>

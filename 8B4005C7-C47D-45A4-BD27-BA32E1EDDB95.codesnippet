@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDECodeSnippetCompletionPrefix</key>
+	<string>xy_yyuikit_userdefaultbacked</string>
+	<key>IDECodeSnippetCompletionScopes</key>
+	<array>
+		<string>All</string>
+	</array>
+	<key>IDECodeSnippetContents</key>
+	<string>@UserDefaultsBacked(key: &lt;#"keyName"#&gt;, defaultValue: &lt;#defalutValue#&gt;)
+static var &lt;#varName#&gt;: &lt;#VarType#&gt;</string>
+	<key>IDECodeSnippetIdentifier</key>
+	<string>8B4005C7-C47D-45A4-BD27-BA32E1EDDB95</string>
+	<key>IDECodeSnippetLanguage</key>
+	<string>Xcode.SourceCodeLanguage.Swift</string>
+	<key>IDECodeSnippetSummary</key>
+	<string>xy_yyuikit_userdefaultbacked</string>
+	<key>IDECodeSnippetTitle</key>
+	<string>xy_yyuikit_userdefaultbacked</string>
+	<key>IDECodeSnippetUserSnippet</key>
+	<true/>
+	<key>IDECodeSnippetVersion</key>
+	<integer>0</integer>
+</dict>
+</plist>
